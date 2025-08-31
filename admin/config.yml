@@ -1,7 +1,7 @@
 
 backend:
   name: github
-  repo: tu-usuario/web-bachillerato-heroes # Cambiar "tu-usuario" por tu username de GitHub
+  repo: sci6377/web-bachillerato-heroes
   branch: main
   commit_messages:
     create: "Crear {{collection}} \"{{slug}}\""
