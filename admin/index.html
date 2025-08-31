@@ -9,5 +9,24 @@
 <body>
   <!-- Incluir Decap CMS con versión específica y estable -->
   <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
+  
+  <script>
+    // Configuración para GitHub OAuth sin servicios externos
+    window.CMS_MANUAL_INIT = true;
+    
+    // Inicializar CMS manualmente
+    window.addEventListener('load', () => {
+      CMS.init({
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'sci6377/web-bachillerato-heroes',
+            branch: 'main',
+            auth_type: 'pkce'
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
