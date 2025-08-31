@@ -3,7 +3,8 @@ backend:
   name: github
   repo: sci6377/web-bachillerato-heroes
   branch: main
-  base_url: https://decapcms-oauth-provider.herokuapp.com
+  base_url: https://decap-oauth-provider.netlify.app
+  auth_endpoint: auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
