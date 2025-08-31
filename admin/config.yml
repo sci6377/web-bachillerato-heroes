@@ -1,10 +1,17 @@
 
+# OPCIÓN 1: Edición directa en GitHub (Recomendada)
+# Usar directamente la interfaz de GitHub para editar archivos JSON
+
+# OPCIÓN 2: Para testing local (comentar para producción)
+# backend:
+#   name: test-repo
+
+# OPCIÓN 3: Para usar con GitHub Desktop
 backend:
   name: github
   repo: sci6377/web-bachillerato-heroes
   branch: main
-  base_url: https://decap-oauth-provider.netlify.app
-  auth_endpoint: auth
+  # Sin autenticación OAuth - Edición manual de archivos
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
