@@ -5,136 +5,34 @@ backend:
   branch: main
   auth_type: implicit
   app_id: Ov23lijAUN6icqf4St8d
-  commit_messages:
-    create: "Crear {{collection}} \"{{slug}}\""
-    update: "Actualizar {{collection}} \"{{slug}}\""
-    delete: "Eliminar {{collection}} \"{{slug}}\""
-    uploadMedia: "Subir \"{{path}}\""
-    deleteMedia: "Eliminar \"{{path}}\""
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "avisos"
-    label: "Avisos PWA"
+  - name: "config"
+    label: "Configuración"
     files:
-      - name: "avisos_pwa"
-        label: "Lista de Avisos"
-        file: "data/avisos_pwa.json"
-        description: "Gestiona la lista de avisos para la PWA."
+      - name: "general"
+        label: "Información General"
+        file: "data/config.json"
         fields:
-          - name: "avisos"
-            label: "Avisos"
-            widget: "list"
-            fields:
-              - { label: "Título", name: "title", widget: "string" }
-              - { label: "Fecha", name: "date", widget: "datetime" }
-              - { label: "Contenido", name: "content", widget: "text" }
-
-  - name: "eventos"
-    label: "Eventos del Calendario"
-    files:
-      - name: "eventos_calendario"
-        label: "Lista de Eventos"
-        file: "data/eventos_calendario_pwa.json"
-        description: "Gestiona los eventos que aparecen en el calendario."
-        fields:
-          - name: "eventos"
-            label: "Eventos"
-            widget: "list"
-            fields:
-              - { label: "Título", name: "title", widget: "string" }
-              - { label: "Fecha de Inicio", name: "start", widget: "datetime" }
-              - { label: "Fecha de Fin", name: "end", widget: "datetime", required: false }
-              - { label: "Descripción", name: "description", widget: "text" }
-
-  - name: "recursos"
-    label: "Recursos PWA"
-    files:
-      - name: "recursos_pwa"
-        label: "Lista de Recursos"
-        file: "data/recursos_pwa.json"
-        description: "Gestiona la lista de recursos educativos."
-        fields:
-          - name: "recursos"
-            label: "Recursos"
-            widget: "list"
-            fields:
-              - { label: "Título", name: "title", widget: "string" }
-              - { label: "URL del Recurso", name: "url", widget: "string" }
-              - { label: "Descripción", name: "description", widget: "text" }
+          - { label: "Nombre de la Institución", name: "institution_name", widget: "string" }
+          - { label: "CCT", name: "cct", widget: "string" }
+          - { label: "Dirección", name: "address", widget: "text" }
+          - { label: "Email", name: "email", widget: "string" }
 
   - name: "testimonios"
-    label: "Testimonios de Egresados"
+    label: "Testimonios"
     files:
-      - name: "testimonios_lista"
+      - name: "testimonios"
         label: "Lista de Testimonios"
         file: "data/testimonios.json"
-        description: "Gestiona los testimonios que aparecen en la página."
         fields:
-          - name: "testimonios"
+          - name: "body"
             label: "Testimonios"
             widget: "list"
             fields:
               - { label: "Nombre", name: "nombre", widget: "string" }
               - { label: "Testimonio", name: "texto", widget: "text" }
               - { label: "Imagen", name: "imagen", widget: "string", required: false }
-              - { label: "Información Extra", name: "infoExtra", widget: "string", required: false }
-
-  - name: "configuracion"
-    label: "Configuración General"
-    files:
-      - name: "general"
-        label: "Información General"
-        file: "data/config.json"
-        description: "Configuración general del sitio."
-        fields:
-          - { label: "Nombre de la Institución", name: "institution_name", widget: "string" }
-          - { label: "CCT", name: "cct", widget: "string" }
-          - { label: "Dirección", name: "address", widget: "text" }
-          - { label: "Teléfono", name: "phone", widget: "string" }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Horario de Atención", name: "schedule", widget: "string" }
-          - { label: "Misión", name: "mission", widget: "text" }
-          - { label: "Visión", name: "vision", widget: "text" }
-          - { label: "Valores", name: "values", widget: "text" }
-
-  - name: "noticias"
-    label: "Noticias y Comunicados"
-    files:
-      - name: "noticias_lista"
-        label: "Lista de Noticias"
-        file: "data/noticias.json" 
-        description: "Gestiona las noticias y comunicados oficiales."
-        fields:
-          - name: "noticias"
-            label: "Noticias"
-            widget: "list"
-            fields:
-              - { label: "Título", name: "title", widget: "string" }
-              - { label: "Fecha de Publicación", name: "date", widget: "datetime" }
-              - { label: "Imagen Destacada", name: "image", widget: "string", required: false }
-              - { label: "Resumen", name: "summary", widget: "text" }
-              - { label: "Contenido Completo", name: "content", widget: "markdown" }
-              - { label: "Autor", name: "author", widget: "string" }
-              - { label: "Categoría", name: "category", widget: "select", options: ["Comunicado", "Evento", "Aviso", "Reconocimiento"] }
-
-  - name: "docentes"
-    label: "Personal Docente"
-    files:
-      - name: "docentes_lista"
-        label: "Lista de Docentes"
-        file: "data/docentes.json"
-        description: "Información del personal docente y administrativo."
-        fields:
-          - name: "docentes"
-            label: "Docentes"
-            widget: "list"
-            fields:
-              - { label: "Nombre Completo", name: "name", widget: "string" }
-              - { label: "Cargo", name: "position", widget: "string" }
-              - { label: "Materias que Imparte", name: "subjects", widget: "list", field: { label: "Materia", name: "materia", widget: "string" } }
-              - { label: "Foto", name: "photo", widget: "string", required: false }
-              - { label: "Email", name: "email", widget: "string", required: false }
-              - { label: "Especialización", name: "specialization", widget: "string", required: false }

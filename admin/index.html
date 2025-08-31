@@ -1,62 +1,13 @@
 <!doctype html>
-<html lang="es">
+<html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración - Bachillerato Héroes de la Patria</title>
-  <link rel="icon" href="../images/logo/logo-bachillerato-HDLP.webp" type="image/webp">
-  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-  <!-- Incluir Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    }
-    
-    /* Mensaje de carga mientras se inicializa el CMS */
-    .loading-message {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #f8f9fa;
-      color: #495057;
-      font-size: 18px;
-    }
-    
-    .loading-message::after {
-      content: "...";
-      animation: dots 1.5s steps(4, end) infinite;
-    }
-    
-    @keyframes dots {
-      0%, 20% { color: rgba(0,0,0,0); text-shadow: .25em 0 0 rgba(0,0,0,0), .5em 0 0 rgba(0,0,0,0); }
-      40% { color: black; text-shadow: .25em 0 0 rgba(0,0,0,0), .5em 0 0 rgba(0,0,0,0); }
-      60% { text-shadow: .25em 0 0 black, .5em 0 0 rgba(0,0,0,0); }
-      80%, 100% { text-shadow: .25em 0 0 black, .5em 0 0 black; }
-    }
-  </style>
+  <title>Panel de Administración</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <!-- Contenedor principal donde Decap CMS se montará -->
-  <div id="nc-root">
-    <div class="loading-message">
-      Cargando Panel de Administración
-    </div>
-  </div>
-
-  <script>
-    // Verificar que el CMS se carga correctamente
-    window.addEventListener('load', function() {
-      console.log('Panel de administración cargado correctamente');
-    });
-
-    // Manejo de errores
-    window.addEventListener('error', function(e) {
-      console.error('Error en el panel de administración:', e.error);
-    });
-  </script>
+  <!-- Incluir Decap CMS con versión específica y estable -->
+  <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
 </body>
 </html>
