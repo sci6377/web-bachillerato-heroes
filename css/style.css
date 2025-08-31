@@ -1,0 +1,2766 @@
+/* ==========================================================================
+   1. RESET BÁSICO, VARIABLES Y ESTILOS GLOBALES
+   ========================================================================== */
+
+/* Importación de Fuentes (Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap');
+
+/* ===== Efecto Hover para Tarjetas ===== */
+.card-hover {
+    transition: box-shadow 0.3s, transform 0.3s, background-color 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    background-color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+.card-hover:hover,
+.card-hover:focus {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.13);
+    transform: translateY(-5px) scale(1.03);
+    background-color: #f5faff;
+    outline: none;
+}
+
+/* Íconos en Mapa del Sitio: más espacio a la izquierda y derecha */
+.mapa-sitio-col i {
+    margin-left: 8px;
+    margin-right: 10px;
+    vertical-align: middle;
+    font-size: 1.1em;
+}
+
+/* Animación de rotación SOLO para íconos de tarjetas generales, excluyendo egresados y vida estudiantil */
+.card-hover:hover i:not(.egresados-icon):not(.vida-card-icon):not(.egresados-mensaje i):not(.vida-card i),
+.card-hover:focus i:not(.egresados-icon):not(.vida-card-icon):not(.egresados-mensaje i):not(.vida-card i) {
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    transform: rotate(-15deg);
+}
+
+/* Quitar animación de rotación en Comunidad de Egresados y Vida Estudiantil */
+.egresados-mensaje .egresados-icon,
+.vida-card .vida-card-icon,
+.egresados-mensaje i,
+.vida-card i {
+    transition: none !important;
+    transform: none !important;
+}
+
+/* Quitar efecto hover del footer */
+footer.card-hover,
+footer.card-hover:hover,
+footer.card-hover:focus {
+    box-shadow: none !important;
+    background-color: var(--dark-footer-background) !important;
+    transform: none !important;
+    cursor: default !important;
+}
+
+/* Efecto hover para íconos en ¿Cómo Instalar 'Héroes Conectados'? */
+/* Only rotate icon on hover/focus, not the card */
+.install-step:hover i,
+.install-step:focus i {
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    transform: rotate(-15deg);
+}
+
+
+:root {
+    /* Paleta de Colores Institucionales */
+    --primary-color: #0D47A1; /* Azul principal (oscuro, similar al del logo) */
+    --secondary-color: #1976D2; /* Azul secundario (más claro) */
+    --accent-color-red: #D32F2F; /* Rojo (del logo) */
+    --accent-color-yellow: #FFC107; /* Amarillo (del logo) */
+    --accent-color-green: #388E3C; /* Verde para elementos positivos/confirmación */
+    
+    /* Colores de Texto y Fondo */
+    --text-color: #333333; /* Color de texto principal */
+    --light-text-color: #f4f4f4; /* Para texto sobre fondos oscuros */
+    --muted-text-color: #555555; /* Para texto secundario o menos importante */
+    --heading-color: var(--primary-color); /* Color para la mayoría de los encabezados */
+
+    --background-color: #FFFFFF; /* Fondo principal de la página */
+    --light-gray-background: #f8f9fa; /* Fondo para secciones alternas */
+    --dark-footer-background: #222A35; /* Fondo oscuro para el footer */
+    --border-color: #dee2e6; /* Color de borde general */
+
+    /* Tipografía */
+    --font-primary: 'Poppins', sans-serif;
+    --font-headings: 'Montserrat', sans-serif;
+
+    /* Unidades y Misceláneos */
+    --border-radius: 8px;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); 
+    --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada para hover */
+    --transition-speed: 0.3s; /* Transición por defecto más rápida */
+    --transition-speed-fast: 0.2s;
+}
+
+/* Reseteo Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; /* Base para REMs */
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.7; /* Ligeramente más espaciado para legibilidad */
+    color: var(--text-color);
+    background-color: var(--background-color);
+    overflow-x: hidden; /* Prevenir scroll horizontal accidental */
+    -webkit-font-smoothing: antialiased; /* Mejor renderizado de fuentes en WebKit */
+    -moz-osx-font-smoothing: grayscale;  /* Mejor renderizado de fuentes en Firefox */
+}
+
+/* Contenedor Principal */
+.container {
+    width: 90%;
+    max-width: 1200px; /* Límite para contenido en pantallas anchas */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Enlaces */
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color var(--transition-speed-fast) ease;
+}
+a:hover {
+    color: var(--secondary-color);
+    text-decoration: none; /* A menudo no se quiere subrayado en hover si ya es obvio que es un enlace */
+}
+
+/* Listas */
+ul, ol {
+    list-style: none; /* Por defecto, se añadirán estilos específicos donde se necesiten (ej. disc en FAQ) */
+}
+
+/* Encabezados */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headings);
+    color: var(--heading-color);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    font-weight: 700; /* Por defecto para la mayoría */
+}
+h1 { font-size: 2.4rem; } /* Equivalente a ~38px */
+h2 { font-size: 2rem; }   /* Equivalente a ~32px (para títulos de sección) */
+h3 { font-size: 1.5rem; } /* Equivalente a ~24px (para subtítulos de sección o títulos de tarjeta) */
+h4 { font-size: 1.25rem; } /* Equivalente a ~20px */
+h5 { font-size: 1.1rem; }  /* Equivalente a ~17.5px */
+h6 { font-size: 1rem; color: var(--secondary-color); }
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3.5rem; /* Más espacio después del título */
+    font-size: 2.4rem; /* Ligeramente más grande */
+    font-weight: 800; /* Más énfasis */
+    position: relative;
+    padding-bottom: 15px;
+}
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background-color: var(--accent-color-red);
+    border-radius: 3px;
+}
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--muted-text-color);
+    max-width: 750px; /* Un poco más de ancho para el subtítulo */
+    margin: -2.5rem auto 3.5rem auto; /* Ajustar márgenes */
+}
+.sub-section-title { /* Para títulos dentro de secciones (ej. Organigrama, Testimonios) */
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem; /* Consistente con otros encabezados */
+    text-align: center;
+}
+
+/* Imágenes */
+img {
+    max-width: 100%;
+    height: auto; /* Por defecto para mantener proporción */
+    display: block; /* Evitar espacio extra debajo de imágenes inline */
+    border-radius: var(--border-radius); /* Radio de borde general para imágenes */
+}
+picture {
+    display: block; /* Asegurar que picture se comporte como bloque */
+}
+
+/* Iconos más grandes para Transparencia */
+.transparencia-icon i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 18px;
+    display: inline-block;
+}
+
+/* Secciones de Página */
+.page-section {
+    padding-top: 70px; /* Ajuste de padding */
+    padding-bottom: 70px;
+}
+.light-section {
+    background-color: var(--light-gray-background);
+}
+
+/* Utilidad para Ocultar Visualmente pero Mantener para Lectores de Pantalla */
+.visually-hidden {
+    position: absolute !important;
+    height: 1px; width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap; /* Evita que el texto se envuelva y ocupe más espacio */
+}
+
+/* ==========================================================================
+   2. PRELOADER
+   ========================================================================== */
+#preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: var(--background-color);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1; /* Inicia visible */
+    visibility: visible;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0.5s; /* Visibilidad cambia después de la opacidad */
+}
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+}
+.loader-logo {
+    text-align: center;
+}
+.loader-logo img { /* Estilos para la imagen dentro del preloader */
+    width: 100px; /* Ajustar según el tamaño del logo del preloader */
+    height: auto;
+    margin-bottom: 15px;
+    animation: pulse 1.5s infinite ease-in-out;
+    border-radius: 0; /* Puede que no quieras borde redondeado en el logo del preloader */
+}
+.loader-logo p {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* ==========================================================================
+   3. ENCABEZADO (HEADER) Y NAVEGACIÓN
+   ========================================================================== */
+/*
+  El encabezado y la navegación ahora son gestionados por el componente
+  Navbar de Bootstrap 5. El HTML fue refactorizado y los estilos
+  se aplican mediante clases de Bootstrap. El CSS personalizado
+  para el menú móvil y el desplegable "Más" ha sido eliminado.
+*/
+/* ==========================================================================
+   4. SECCIÓN HERO Y CARRUSELES GENERALES
+   ========================================================================== */
+.hero-section {
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 0; /* El carrusel wrapper ocupa todo */
+    position: relative;
+    min-height: 80vh; /* Altura mínima, puede ser ajustada */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+}
+.carousel-wrapper { /* Contenedor para un carrusel y sus indicadores/controles */
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+.hero-carousel-wrapper { /* Wrapper específico para el carrusel del Hero */
+    /* No necesita estilos adicionales si .carousel-wrapper ya es absoluto y 100% */
+}
+
+.hero-indicators-standalone { position: absolute; bottom: 20px; left: 0; z-index: 2; } 
+.carousel-container { /* Contenedor de los slides y controles prev/next */
+    position: relative;
+    width: 100%;
+    height: 100%; /* Para que los slides ocupen toda la altura */
+    overflow: hidden;
+    border-radius: 0; /* El carrusel Hero no suele tener borde redondeado */
+}
+.carousel-container.card-hover { /* Para carruseles que son como tarjetas, ej. evento destacado */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.carousel-slide {
+    min-width: 100%;
+    width: 100%; height: 100%; /* Asegurar que el slide ocupe todo el contenedor */
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0; left: 0;
+    transition: opacity 0.7s ease-in-out, visibility 0s linear 0.7s;
+}
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+    position: relative; /* O 'static' si no interfiere con los controles absolutos */
+    transition-delay: 0s;
+}
+.carousel-slide img { width: 100%; display: block; height: 100%; object-fit: cover; }
+.carousel-slide picture { /* Aplicar a picture también */
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; /* Cubre el área sin distorsionar, puede recortar */
+    border-radius: inherit; /* Heredar border-radius del contenedor si aplica */
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.35);
+    color: white;
+    border: none;
+    padding: 0; /* El tamaño se define por width/height */
+    font-size: 1.6rem; /* Tamaño del icono de flecha */
+    cursor: pointer;
+    z-index: 3; /* Encima del overlay y slides */
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-speed-fast) ease;
+}
+.carousel-control:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.carousel-control.prev { left: 20px; } /* Un poco más de margen desde el borde */
+.carousel-control.next { right: 20px; }
+
+/* Indicadores del Carrusel (Dots/Bullets) */
+.carousel-indicators-container { /* Contenedor que posiciona los dots */
+    position: absolute;
+    bottom: 25px; /* Ajusta esta distancia desde abajo */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex; /* Para usar gap */
+    gap: 8px;
+    padding: 8px 12px; /* Padding alrededor de los dots */
+    background-color: rgba(0, 0, 0, 0.25); /* Ligero fondo para legibilidad */
+    border-radius: 16px; /* Bordes redondeados para el contenedor de dots */
+}
+/* Si los indicadores están fuera del wrapper principal, necesitarán posicionamiento estático */
+#evento-destacado .carousel-indicators-container { 
+    /* Estos estilos se aplican si el div de indicadores está DESPUÉS del carrusel en el HTML */
+    position: relative; /* Cambiar a relativo si está fuera del carrusel principal */
+    bottom: auto; left: auto; transform: none; /* Resetear posicionamiento absoluto */
+    justify-content: center; /* Centrar los dots */
+    margin-top: 15px; /* Espacio arriba si están debajo del carrusel */
+    background-color: transparent; /* Sin fondo si están sobre el fondo de la sección */
+    padding: 5px 0;
+}
+
+.carousel-indicator { /* Estilo del dot individual */
+    width: 10px; /* Más pequeños */
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5); /* Dots blancos semitransparentes para Hero */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    padding: 0; /* Sin padding interno */
+    margin: 0; /* El gap del contenedor ya los separa */
+    transition: background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease;
+}
+.carousel-indicator.active,
+.carousel-indicator:hover {
+    background-color: rgba(255, 255, 255, 0.9); /* Más opaco al activar/hover */
+    transform: scale(1.1);
+}
+
+/* Indicadores para carruseles sobre fondo claro (ej. Evento Destacado, Testimonios) */
+.event-carousel + .carousel-indicators-container .carousel-indicator, /* Si va después del div del carrusel */
+.event-carousel .carousel-indicators .carousel-indicator, /* Si va dentro */
+.testimonios-indicators-container .carousel-indicator {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+.event-carousel + .carousel-indicators-container .carousel-indicator.active,
+.event-carousel + .carousel-indicators-container .carousel-indicator:hover,
+.event-carousel .carousel-indicators .carousel-indicator.active,
+.event-carousel .carousel-indicators .carousel-indicator:hover,
+.testimonios-indicators-container .carousel-indicator.active,
+.testimonios-indicators-container .carousel-indicator:hover {
+    background-color: var(--primary-color); /* Usar color primario para activo/hover */
+}
+
+/* Contenido del Hero (Texto y Botones) */
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(13, 71, 161, 0.4), rgba(25, 118, 210, 0.5), rgba(13, 71, 161, 0.4)); /* Gradiente ajustado */
+    z-index: 1; 
+}
+.hero-content {
+    position: relative; 
+    z-index: 2; /* Encima del overlay */
+    max-width: 800px; /* Limitar ancho del texto */
+    padding: 20px; /* Espacio interno por si acaso */
+}
+.hero-section h2 { /* Título principal del Hero */
+    font-size: 3rem; /* Ajustar según preferencia */
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    font-weight: 800;
+}
+.hero-section p { /* Párrafo del Hero */
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto; margin-right: auto;
+    color: #e0e0e0; /* Un poco menos brillante que blanco puro */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+.hero-buttons .btn {
+    margin: 8px; /* Espacio entre botones */
+    padding: 14px 30px; /* Ligeramente más pequeños */
+    font-size: 1rem;
+}
+/* BOTONES GENERALES */
+.btn { display: inline-block; padding: 12px 25px; border-radius: var(--border-radius); font-weight: 600; text-align: center; transition: all var(--transition-speed); cursor: pointer; border: none; letter-spacing: 0.5px; }
+.btn-primary { background-color: var(--accent-color-red); color: #fff; }
+.btn-primary:hover { background-color: #A31F1F; color: #fff; transform: translateY(-3px) scale(1.03); box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3); }
+.btn-secondary { background-color: transparent; color: #fff; border: 2px solid #fff; }
+.btn-secondary:hover { background-color: #fff; color: var(--primary-color); transform: translateY(-3px) scale(1.03); }
+.btn-secondary-outline { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); }
+.btn-secondary-outline:hover { background-color: var(--primary-color); color: #fff; transform: translateY(-3px) scale(1.03); }
+.btn-small { padding: 10px 20px; font-size: 0.9rem; }
+.btn-tertiary { background-color: var(--primary-color); color: #fff; }
+.btn-tertiary:hover { background-color: var(--secondary-color); color: #fff; transform: translateY(-2px); }
+.btn-link { background: none; color: var(--primary-color); padding: 10px 0; font-weight: 600; border: 3px solid #1976D2;}
+.btn-link:hover { color: var(--accent-color-red); text-decoration: underline; }
+.btn-link i { margin-left: 5px; transition: transform 0.2s ease-out; }
+.btn-link.active i { transform: rotate(180deg); }
+.btn:active { /* Cuando el botón está siendo presionado */
+    transform: translateY(1px) scale(0.98); /* Ligero empuje hacia abajo y encogimiento */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra más pequeña */
+}
+.btn-primary:active {
+    background-color: #b71c1c; /* Un rojo aún más oscuro al presionar */
+}
+/* Añade :active para .btn-secondary, .btn-tertiary si quieres efectos específicos */
+
+/* ==========================================================================
+   5. SECCIONES DE INFORMACIÓN GENERAL (Próximas Inscripciones, Evento Destacado)
+   ========================================================================== */
+.info-section {
+    padding: 1rem;
+    margin: 2rem 0;
+    text-align: center;
+    border-radius: var(--border-radius);
+}
+.info-section.highlight-section { /* Sección con fondo de color secundario */
+    background-color: var(--secondary-color);
+    color: var(--light-text-color);
+}
+.info-section.highlight-section h3,
+.info-section.highlight-section p {
+    color: var(--light-text-color);
+}
+.info-section.highlight-section .btn-tertiary { /* Botón sobre fondo oscuro */
+    background-color: #fff;
+    color: var(--primary-color);
+}
+.info-section.highlight-section .btn-tertiary:hover {
+    background-color: #e9ecef; /* Un gris muy claro */
+}
+.info-section.highlight-section i.fa-bullhorn {
+    color: #fff; /* Icono blanco sobre fondo oscuro */
+}
+
+.info-section.event-section { /* Sección con fondo gris claro */
+    background-color: var(--light-gray-background);
+}
+.info-section h3 { /* Títulos dentro de estas secciones informativas */
+    font-size: 1.8rem; /* Un poco más grandes que h4 */
+    margin-bottom: 15px;
+}
+.info-section h3 i { /* Iconos junto a los títulos */
+    font-size: 2.2rem; /* Ligeramente más pequeños */
+    color: var(--accent-color-red);
+    margin-right: 10px;
+    vertical-align: -3px; /* Alinear mejor con el texto */
+}
+#evento-destacado .container > h3, /* Asegurar que el texto esté encima del carrusel si este tiene un fondo */
+#evento-destacado .container > p:not(.form-instruction) {
+    position: relative;
+    z-index: 1; /* Por si el carrusel se superpone de alguna manera */
+}
+#evento-destacado .carousel-wrapper { /* Wrapper del carrusel de evento */
+    margin-top: 25px; 
+    margin-bottom: 25px;
+    position: relative; 
+}
+.event-carousel { /* Contenedor específico para el carrusel de evento */
+    max-width: 700px;
+    margin-left: auto; margin-right: auto;
+    height: 400px; /* Altura fija para este carrusel */
+}
+
+/* ==========================================================================
+   6. SECCIÓN "¿POR QUÉ ELEGIRNOS?" (FEATURES)
+   ========================================================================== */
+.features-section {
+    padding: 70px 0;
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); /* Ligeramente más pequeño el minmax */
+    gap: 25px; /* Un poco menos gap */
+    margin-top: 1.5rem; /* Menos margen superior */
+}
+.feature-item {
+    background-color: #fff;
+    padding: 30px 25px; /* Ajustar padding */
+    text-align: center;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: transform var(--transition-speed-fast) ease, box-shadow var(--transition-speed-fast) ease;
+}
+.feature-item:hover {
+    transform: translateY(-8px); /* Menos elevación */
+    box-shadow: var(--card-shadow);
+}
+.feature-item i { /* Icono de la característica */
+    font-size: 2.8rem; /* Ligeramente más pequeño */
+    color: var(--accent-color-red);
+    margin-bottom: 18px;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Transición para hover */
+}
+.feature-item:hover i {
+    transform: scale(1.1) rotate(-5deg);
+}
+.feature-item h3 { /* Título de la característica */
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+.feature-item p {
+    font-size: 0.9rem; /* Ligeramente más pequeño */
+    color: var(--muted-text-color);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   7. SECCIÓN CONÓCENOS (Director, Video, Tabs, Infraestructura, Modelo)
+   ========================================================================== */
+/* Mensaje del Director */
+.director-message-container {
+    display: flex;
+    flex-wrap: wrap; /* Permitir que la foto y el texto se envuelvan en pantallas pequeñas */
+    gap: 30px;
+    align-items: flex-start; /* Alinear al inicio */
+    margin-bottom: 50px;
+    padding: 30px;
+    background-color: var(--light-gray-background);
+    border-radius: var(--border-radius);
+}
+.director-photo {
+    flex: 1 1 280px; /* Base flexible, permitir crecer y encoger */
+    max-width: 300px; /* Limitar tamaño máximo de la foto */
+    margin: 0 auto 20px auto; /* Centrar en móvil cuando se apila */
+}
+.director-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+.director-text {
+    flex: 2 1 500px; /* Que el texto ocupe más espacio */
+}
+.director-text h3 { /* "Mensaje del Director" */
+    margin-top: 0;
+    font-size: 1.8rem;
+}
+.director-text h4 { /* "Ing. Samuel Cruz Interial" */
+    font-size: 1.4rem; /* Un poco más grande */
+    color: var(--secondary-color);
+    margin-bottom: 3px;
+}
+.director-text h5 { /* "Formación con Propósito", "Nuestro Compromiso" */
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.director-text .director-role {
+    font-style: italic;
+    color: var(--muted-text-color);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+.director-text .director-quote {
+    font-style: italic;
+    color: var(--accent-color-red);
+    font-weight: 600;
+    margin-top: 20px;
+    font-size: 1.05rem; /* Un poco más grande */
+    display: block; /* Para que ocupe su línea */
+}
+.director-buttons {
+    margin-top: 25px;
+}
+.director-buttons .btn {
+    margin-right: 10px;
+    margin-bottom: 10px; /* Para apilamiento en móvil */
+}
+.director-text ul {
+    list-style: none; /* Quitar viñetas por defecto */
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+.director-text ul li {
+    margin-bottom: 8px;
+    padding-left: 25px; /* Espacio para el icono */
+    position: relative;
+}
+.director-text ul li i.fa-check { /* Estilo para los iconos de check si los usas */
+    position: absolute;
+    left: 0;
+    top: 4px; /* Alinear con el texto */
+    color: var(--accent-color-green);
+}
+
+/* Video Institucional */
+.video-institucional-container {
+    margin-top: 50px; /* Más separación */
+    margin-bottom: 50px;
+    padding: 30px;
+    background-color: #fff; /* Fondo blanco si la sección es gris */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+.video-institucional-container h3 {
+    font-size: 1.6rem; /* Título un poco más pequeño */
+    margin-bottom: 20px;
+}
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    border-radius: var(--border-radius); /* Redondear el video también */
+}
+.video-wrapper iframe,
+.video-wrapper video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+}
+
+/* Pestañas (Tabs) */
+.tabs-container {
+    margin-bottom: 50px;
+}
+.tab-buttons {
+    display: flex;
+    margin-bottom: -1px; /* Para que el borde se superponga con el del contenido */
+    border-bottom: 1px solid var(--border-color); /* Borde base */
+    flex-wrap: wrap; 
+}
+.tab-button {
+    padding: 12px 22px; /* Ajustar padding */
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid transparent; /* Borde transparente para mantener layout */
+    border-bottom: none; /* El borde inferior lo maneja el :active */
+    margin-right: 5px;
+    margin-bottom: -1px; /* Para que el borde activo se alinee con el borde del contenido */
+    font-size: 1rem; 
+    font-weight: 600;
+    color: var(--secondary-color);
+    position: relative;
+    border-radius: var(--border-radius) var(--border-radius) 0 0; /* Redondear esquinas superiores */
+    transition: color var(--transition-speed-fast) ease, background-color var(--transition-speed-fast) ease;
+}
+.tab-button.active {
+    color: var(--primary-color);
+    background-color: var(--background-color); /* Mismo fondo que el contenido para efecto de pestaña */
+    border-color: var(--border-color) var(--border-color) var(--background-color); /* El borde inferior se "fusiona" */
+    /* border-bottom: 3px solid var(--accent-color-red); Alternativa con línea de color */
+}
+.tab-button:not(.active):hover {
+    color: var(--primary-color);
+    background-color: var(--light-gray-background); /* Ligero fondo en hover */
+}
+.tab-content-wrapper {
+    padding: 30px;
+    background-color: var(--background-color); /* Fondo blanco para el contenido */
+    border: 1px solid var(--border-color);
+    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius); /* Redondear esquinas restantes */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
+    min-height: 250px; /* Altura mínima para el contenido de la pestaña */
+}
+.tab-pane { display: none; animation: fadeInTab 0.4s ease-out; }
+.tab-pane.active { display: block; }
+@keyframes fadeInTab { from { opacity: 0; } to { opacity: 1; } }
+.tab-pane h4 { margin-top: 0; font-size: 1.4rem; }
+.values-list li { margin-bottom: 10px; display: flex; align-items: center; font-size: 0.95rem; }
+.values-list i { color: var(--accent-color-green); margin-right: 10px; font-size: 1.2rem; }
+
+/* Infraestructura y Modelo Educativo (Tarjetas) */
+.infraestructura-modelo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+.infra-card, .modelo-card { /* Estilos comunes para estas tarjetas */
+    padding: 30px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center; /* Centrar icono y título */
+}
+.infra-card i, .modelo-card i { /* Iconos grandes en estas tarjetas */
+    font-size: 2.8rem;
+    color: var(--accent-color-red);
+    margin-bottom: 18px;
+    display: block; /* Para que el margen inferior funcione */
+}
+.infra-card h4, .modelo-card h4 { /* Títulos de estas tarjetas */
+    margin-top: 0;
+    font-size: 1.4rem; /* Consistente con otras tarjetas */
+    margin-bottom: 15px;
+}
+.infra-card ul, .modelo-card ul {
+    padding-left: 0;
+    text-align: left; /* Alinear texto de lista a la izquierda */
+    margin-top: 15px;
+}
+.infra-card ul li, .modelo-card ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+.infra-card ul li i, .modelo-card ul li i { /* Iconos pequeños en las listas */
+    font-size: 1rem;
+    color: var(--secondary-color);
+    margin-right: 10px;
+    width: 20px; /* Para alinear el texto */
+    text-align: center;
+}
+/* ==========================================================================
+         ORGANIGRAMA INTERACTIVO
+   ========================================================================== */
+.organigrama-container { margin-top: 50px; padding: 20px; border-radius: var(--border-radius); }
+.organigrama-wrapper { position: relative; z-index: 1; text-align: center; padding-bottom: 135px; /* Espacio extra al final */ margin-bottom: 60px; /* Separación de la siguiente sección */}
+.org-section-title { font-size: 1.5rem; color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 5px; }
+.org-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; justify-content: center; margin-bottom:30px; }
+.org-card-container { position: relative; }
+.org-card { background-color: #fff; border-radius: var(--border-radius); box-shadow: var(--box-shadow); padding: 15px; text-align: center; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.org-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); }
+.org-card img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 8px; border: 2px solid var(--border-color); }
+.org-card.director img { width: 90px; height: 90px; }
+.org-name { font-weight: 600; color: var(--primary-color); font-size: 0.95rem; margin-bottom: 2px; }
+.org-title { font-size: 0.8rem; color: #555; }
+.org-info-popup {
+    display: none;
+    position: fixed;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2010;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+    padding: 16px 18px 14px 18px;
+    max-width: 520px;
+    min-width: 320px;
+    max-height: 85vh;
+    text-align: left;
+    overflow-y: auto;
+    opacity: 0;
+    transform: scale(0.95) translateY(10px); /* Inicia un poco más pequeño y abajo */
+    visibility: hidden;
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out, visibility 0s 0.25s; 
+}
+
+.org-info-popup.active {
+    display: block; /* Forzar display block */
+    opacity: 1;     /* Forzar opacidad completa */
+    visibility: visible;
+    /* Mantener centrado y escalado */
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out, visibility 0s 0s;
+}
+
+.org-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(0,0,0,0.08); /* Un poco más oscuro para mejor enfoque */
+    z-index: 2005;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.org-popup-overlay.active {
+    display: block;
+    opacity: 1;
+}
+.org-info-popup h4 {
+    font-size: 1.08rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 7px;
+    font-weight: 700;
+    text-align: left;
+    word-break: break-word;
+    letter-spacing: 0.01em;
+}
+.org-info-popup p { margin-bottom: 10px; font-size: 0.95rem; line-height: 1.6; }
+.org-info-popup p strong { color: var(--text-color); }
+.close-popup-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.8rem; color: #888; cursor: pointer; padding: 5px; line-height: 1; }
+.close-popup-btn:hover { color: var(--accent-color-red); }
+/*.org-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 2005; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s 0.3s; }*/
+/*.org-popup-overlay.active { display: block; opacity: 1; visibility: visible; transition: opacity 0.3s ease, visibility 0s 0s; }*/
+
+.org-popup-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--border-color);
+}
+.org-popup-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+    flex-shrink: 0;
+}
+.org-popup-title-group h4 {
+    font-size: 1.2rem; /* Un poco más grande */
+    color: var(--primary-color);
+    margin-bottom: 3px;
+}
+.org-popup-cargo {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    font-style: italic;
+    margin: 0;
+}
+.org-popup-body p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+.org-popup-body p strong {
+    color: var(--text-color);
+}
+.org-popup-body p em { /* Para el lema */
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #555;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   8. SECCIÓN OFERTA EDUCATIVA (Acordeones, Modales)
+   ========================================================================== */
+.oferta-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 40px; }
+@media (min-width: 992px) { .oferta-grid { grid-template-columns: repeat(2, 1fr); } }
+/*.oferta-col  ya tienen estilos. Revisar si necesitan ajustes después. */
+.plan-estudios-col, 
+.formacion-laboral-col {
+    padding: 30px; /* Un poco más de padding */
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+.oferta-col h3 { /* Títulos "Plan de Estudios", "Capacitación..." */
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem; /* Ligeramente más grande */
+    margin-bottom: 1.2rem;
+}
+.oferta-col h3 i {
+    margin-right: 12px;
+    font-size: 1.8rem;
+    color: var(--accent-color-red);
+}
+.oferta-col p { /* Párrafo introductorio en cada columna */
+    font-size: 0.95rem;
+    color: var(--muted-text-color);
+}
+
+/* Acordeón (Reutilizado para Plan de Estudios y Formación Laboral) */
+.accordion {
+    margin-top: 25px;
+    border: 1px solid var(--border-color); /* Borde alrededor de todo el acordeón */
+    border-radius: var(--border-radius);
+}
+.accordion-item {
+    border-bottom: 1px solid var(--border-color); /* Separador entre items */
+    overflow: hidden; /* Para el efecto de deslizamiento */
+}
+.accordion-item:last-child {
+    border-bottom: none; /* No borde en el último item */
+}
+button.accordion-header { /* Botón del acordeón */
+    background-color: transparent; /* Sin fondo por defecto */
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 15px 20px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.05rem; /* Un poco más grande */
+    font-weight: 600;
+    font-family: var(--font-primary);
+    transition: background-color var(--transition-speed-fast) ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+button.accordion-header:hover {
+    background-color: var(--light-gray-background);
+}
+button.accordion-header i.fa-chevron-down { /* Icono de flecha */
+    transition: transform var(--transition-speed-fast) ease;
+    font-size: 0.85rem;
+}
+button.accordion-header.active i.fa-chevron-down {
+    transform: rotate(180deg);
+}
+div.accordion-content { /* Contenido del acordeón */
+    padding: 0px 20px; /* Padding se anima con JS */
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-out, padding var(--transition-speed-fast) ease-out; /* Transición más suave para max-height */
+}
+div.accordion-content ul {
+    padding: 20px 0 20px 20px; /* Padding interno para la lista */
+    list-style: disc;
+    font-size: 0.9rem;
+}
+div.accordion-content ul li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+div.accordion-content p { /* Párrafos dentro del acordeón (ej. en formación laboral) */
+    font-size: 0.9rem;
+    padding-top: 25px; /* Espacio si hay texto antes de un botón/lista */
+    margin-bottom: 30px;
+}
+.perfil-egreso-link, .enlaces-adicionales-oferta { /* Contenedores para botones debajo de los acordeones */
+    margin-top: 25px;
+    text-align: center;
+}
+.enlaces-adicionales-oferta .btn {
+    margin: 5px;
+}
+
+/* Centrar botones en las tarjetas de la sección de oferta educativa */
+.oferta-col .btn {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* Asegurar que los botones dentro del acordeón estén centrados */
+.accordion-content .btn {
+    display: block;
+    margin: 15px auto;
+    text-align: center;
+}
+
+/* Estilo específico para los botones de enlaces SEP */
+.enlaces-sep-programas {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Asegurar que los botones de enlaces estén centrados en su contenedor */
+.enlaces-sep-programas .btn {
+    display: inline-block;
+    margin: 10px auto;
+}
+
+/* Áreas Propedéuticas */
+.areas-propeduticas {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--light-gray-background);
+    border-radius: var(--border-radius);
+}
+.areas-propeduticas h4 {
+    font-size: 1.1rem; /* Más pequeño que los h3 de columna */
+    margin-bottom: 15px;
+}
+.areas-propeduticas ul.values-list li i { /* Reutilizando .values-list de Conócenos */
+    color: var(--accent-color-green); /* O color específico para propedéuticas */
+}
+
+/* Información de Admisiones */
+.admisiones-info {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+.admisiones-info h3 { /* "Proceso de Admisión" */
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.admisiones-info h3 i {
+    margin-right: 10px;
+    color: var(--accent-color-red);
+}
+.admisiones-info ul {
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 15px;
+}
+.admisiones-info ul li {
+    margin-bottom: 10px; /* Más espacio entre requisitos */
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+.admisiones-info ul li i {
+    margin-right: 10px;
+    color: var(--secondary-color);
+    width: 20px; /* Para alinear texto */
+    text-align: center;
+}
+.admisiones-info p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+.admisiones-info .btn-tertiary { /* Botón Calendario SEP */
+    margin-top: 10px;
+}
+
+/* ==========================================================================
+   9. MODALES GENERALES (estilos base para todos los .modal)
+   ========================================================================== */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000; /* Encima de casi todo */
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto; /* Scroll si el contenido del modal es muy largo */
+    background-color: rgba(0,0,0,0.55); /* Overlay oscuro semitransparente */
+    animation: fadeInModal 0.3s ease-out;
+}
+.modal.active { /* JS puede añadir esta clase para mostrarlo, pero display:block es más común */
+    display: block;
+}
+.modal-content {
+    background-color: var(--background-color);
+    margin: 5vh auto; /* Centrado vertical con margen superior/inferior */
+    padding: 25px 35px; /* Ajustar padding */
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 800px; /* Ancho máximo del modal */
+    position: relative;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+    animation: slideInModal 0.35s ease-out;
+}
+.modal-title { /* Para los h2 dentro de .modal-content */
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.8rem; /* Título del modal */
+}
+button.close-button { /* Botón de cierre (X) */
+    color: #888;
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 2rem; /* Más grande y fácil de clickear */
+    font-weight: bold;
+    line-height: 1;
+    background: none; border: none;
+    cursor: pointer;
+    padding: 5px; /* Área de clic */
+    transition: color var(--transition-speed-fast) ease;
+}
+button.close-button:hover,
+button.close-button:focus {
+    color: var(--accent-color-red);
+    text-decoration: none;
+}
+.modal-scrollable-content {
+    max-height: 70vh; /* Altura máxima antes de que aparezca scroll interno */
+    overflow-y: auto;
+    padding-right: 15px; /* Espacio para la barra de scroll si aparece */
+    margin-right: -15px; /* Compensar el padding-right */
+}
+.modal-scrollable-content h4,
+.modal-scrollable-content h5,
+.modal-scrollable-content h6 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--secondary-color); /* Subtítulos dentro del modal */
+}
+.modal-scrollable-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+.modal-scrollable-content ul {
+    list-style: disc;
+    padding-left: 25px;
+    margin-bottom: 1rem;
+}
+
+/* Modal específico para Video */
+.modal.video-modal .modal-content {
+    padding: 10px; /* Menos padding para que el video ocupe más */
+    max-width: 960px; 
+    background-color: #000; /* Fondo negro para el video */
+}
+.video-modal .close-button {
+    color: #fff;
+    top: 8px; right: 12px;
+    font-size: 1.6rem;
+}
+.video-wrapper-modal { /* Contenedor del iframe de video en modal */
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: calc(var(--border-radius) - 5px); /* Si el modal-content tiene padding */
+}
+.video-wrapper-modal iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+}
+
+/* Animaciones para Modales */
+@keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideInModal { 
+    from { opacity: 0; transform: translateY(-30px) scale(0.98); } 
+    to { opacity: 1; transform: translateY(0) scale(1); } 
+}
+
+/* ==========================================================================
+   10. SECCIÓN SERVICIOS ESCOLARES
+   ========================================================================== */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); /* Ligeramente más pequeño el minmax */
+    gap: 25px;
+}
+.service-item {
+    padding: 30px 25px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Para alinear el botón abajo si la altura es variable */
+    transition: var(--card-hover); /* Reutilizar la variable de transición si la definiste */
+}
+.service-item:hover { /* Reutilizar card-hover si ya lo tienes definido */
+    transform: translateY(-8px);
+    box-shadow: var(--card-shadow);
+}
+.service-icon i { /* Icono principal del servicio */
+    font-size: 2.8rem;
+    color: var(--accent-color-red);
+    margin-bottom: 18px;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+.service-item:hover .service-icon i {
+    transform: scale(1.1) rotate(-5deg);
+}
+.service-item h3 { /* Título del servicio */
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: var(--primary-color);
+}
+.service-item p {
+    font-size: 0.9rem;
+    color: var(--muted-text-color);
+    margin-bottom: 20px;
+    flex-grow: 1; /* Asegura que el párrafo ocupe espacio y empuje el botón abajo */
+    line-height: 1.6;
+}
+.service-item .btn {
+    margin-top: auto; /* Asegura que el botón se alinee al final de la tarjeta */
+}
+
+/* ==========================================================================
+   11. SECCIÓN VIDA ESTUDIANTIL (Noticias, Galería, Calendario/Avisos Padres)
+   ========================================================================== */
+.vida-estudiantil-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Un poco más de ancho base para estas tarjetas */
+    gap: 30px;
+    margin-bottom: 40px; /* Más espacio antes de "Enlaces de Interés" */
+}
+.vida-card { /* Estilo base para las tarjetas de esta sección */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex; /* Para control interno */
+    flex-direction: column;
+}
+.vida-card-icon i { /* Icono en la parte superior de la tarjeta de vida estudiantil */
+    font-size: 2.5rem;
+    color: var(--primary-color); /* Color diferente para estos iconos */
+    margin-bottom: 15px;
+    display: block; /* Para que el margen funcione */
+    text-align: left; /* Alinear icono a la izquierda */
+}
+.vida-card h3 { /* Títulos "Noticias y Avisos", "Galería", etc. */
+    font-size: 1.5rem;
+    margin-top: 0; /* Si el icono ya está arriba */
+    margin-bottom: 15px;
+    text-align: left; /* Alinear texto a la izquierda */
+}
+.vida-card p { /* Párrafos descriptivos en estas tarjetas */
+    font-size: 0.95rem;
+    color: var(--muted-text-color);
+    margin-bottom: 20px;
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* Noticias Específicas */
+.noticia-item {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.noticia-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.noticia-item h4 { /* Título de la noticia */
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+.noticia-item h4 a {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.noticia-item h4 a:hover {
+    color: var(--accent-color-red);
+}
+.noticia-meta { /* Fecha de publicación */
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 8px;
+    display: block;
+}
+.noticia-resumen {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+.noticia-completa {
+    display: none;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    animation: fadeInDetails 0.4s ease-out;
+    border-left: 3px solid var(--secondary-color);
+    padding-left: 15px;
+}
+@keyframes fadeInDetails { from { opacity: 0; } to { opacity: 1; } }
+.noticia-completa.visible {
+    display: block;
+}
+.btn-leer-mas { /* Estilo para el botón "Leer más" */
+    font-size: 0.85rem;
+    text-align: left; /* Alinear a la izquierda */
+    padding-left: 0;
+}
+
+/* Galería Preview */
+.galeria-preview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Mostrar 2 miniaturas por fila */
+    gap: 10px;
+    margin: 20px 0;
+}
+.galeria-preview img,
+.galeria-preview picture {
+    width: 100%;
+    height: 120px; /* Altura fija para las miniaturas */
+    object-fit: cover;
+    border-radius: calc(var(--border-radius) - 4px); /* Ligeramente menos redondeado */
+}
+.galeria-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 15px; 
+    margin: 20px 0;
+}
+.galeria-grid img { 
+    width: 100%; 
+    height: auto; 
+    border-radius: var(--border-radius); 
+    box-shadow: var(--box-shadow); 
+}
+
+/* Botones en la tarjeta de galería */
+.galeria-card .btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.galeria-card .btn {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.vida-card .btn-small { /* Botones dentro de las tarjetas de vida estudiantil */
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+}
+
+/* Ajuste específico para el botón de Facebook */
+.galeria-card .btn-primary {
+    margin-top: 10px;
+}
+
+/* Ajuste para el botón de la galería */
+.galeria-card .btn-tertiary {
+    margin-top: 0;
+}
+
+/* Calendario y Avisos a Padres */
+.vida-hr { /* Separador <hr> */
+    margin: 25px 0;
+    border: 0;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Ajustes para la tarjeta de Calendario y Avisos */
+.calendario-avisos-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.calendario-avisos-card .vida-card-icon {
+    margin-bottom: 15px;
+}
+
+.calendario-avisos-card .btn {
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.calendario-avisos-card h4 { /* Título "Avisos para Padres" */
+    font-size: 1.1rem;
+    margin: 20px 0 15px 0;
+    display: flex;
+    align-items: center;
+}
+
+.calendario-avisos-card h4 i {
+    margin-right: 8px;
+    color: var(--secondary-color);
+}
+
+/* Ajuste para el texto debajo del botón del calendario */
+.calendario-avisos-card > p:last-of-type {
+    margin-top: auto;
+}
+
+/* Enlaces de Interés (debajo de la rejilla de vida estudiantil) */
+.enlaces-interes {
+    margin-top: 50px;
+    text-align: center;
+}
+.enlaces-interes h4 {
+    font-size: 1.4rem; /* Título un poco más grande */
+    margin-bottom: 25px;
+}
+a.enlace-externo { /* Estilo para cada enlace de interés */
+    display: inline-block;
+    margin: 0 8px 20px 8px; /* Only bottom margin for spacing below header */margen */
+    padding: 10px 18px;
+    background-color: var(--light-gray-background);
+    border-radius: var(--border-radius);
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background-color var(--transition-speed-fast) ease, color var(--transition-speed-fast) ease;
+    border: 1px solid var(--border-color);
+}
+a.enlace-externo:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+a.enlace-externo i {
+    margin-right: 8px;
+}
+
+
+/* ==========================================================================
+   12. SECCIÓN SEGUIMIENTO A EGRESADOS
+   ========================================================================== */
+.egresados-content { display: grid; grid-template-columns: 1fr; gap: 40px; }
+@media (min-width: 992px) { .egresados-content { grid-template-columns: 1fr 1.5fr; } }
+.egresados-mensaje, .egresados-formulario { background-color: #fff; padding: 30px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+.egresados-icon i { font-size: 3rem; color: var(--primary-color); margin-bottom: 15px; display: block; }
+.egresados-mensaje h3 { font-size: 1.8rem; margin-bottom: 15px; }
+.egresados-formulario h4 { font-size: 1.5rem; margin-bottom: 20px; }
+
+/* ==========================================================================
+   13. SECCIÓN TESTIMONIOS EGRESADOS
+   ========================================================================== */
+.testimonios-egresados {
+    margin-top: 60px; /* Espacio después del formulario de egresados */
+}
+.testimonios-egresados .sub-section-title {
+    margin-bottom: 40px;
+}
+.testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.testimonio-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.testimonio-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid var(--primary-color);
+}
+.testimonio-texto {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Para que el texto ocupe espacio y los nombres se alineen abajo */
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.testimonio-texto::before {
+    content: "\201C"; /* Comilla izquierda */
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    display: block;
+    line-height: 0.5;
+    margin-bottom: 5px;
+}
+.testimonio-texto::after {
+    content: "\201D"; /* Comilla derecha */
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    display: block;
+    line-height: 0.5;
+    margin-top: 5px;
+    text-align: right; /* Alinear comilla derecha */
+}
+.testimonio-autor {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-size: 1.05rem;
+}
+.testimonio-info {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+/* Botón de instalar PWA */
+.pwa-install-btn {
+    font-size: 1.12rem;
+    padding: 12px 28px;
+    border-radius: 25px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(13,71,161,0.11);
+    margin: 0 auto 18px auto;
+    display: block;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.pwa-install-btn i {
+    margin-right: 8px;
+}
+.pwa-install-btn:hover, .pwa-install-btn:focus {
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    box-shadow: 0 8px 30px rgba(13,71,161,0.16);
+    transform: translateY(-2px) scale(1.04);
+    color: #fff;
+    outline: none;
+}
+
+/* FAQ Accordion Item Hover Effect */
+.faq-accordion .accordion-item {
+    transition: box-shadow 0.3s, background-color 0.3s;
+    background-color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+.faq-accordion .accordion-item:hover,
+.faq-accordion .accordion-item:focus {
+    box-shadow: 0 8px 25px rgba(13,71,161,0.10);
+    background-color: #f5faff;
+    outline: none;
+}
+
+/* ==========================================================================
+   14. SECCIÓN CARRUSEL DE TESTIMONIOS
+   ========================================================================== */
+#testimonios-carrusel {
+    /* background-color: var(--light-gray-background); si es light-section */
+    overflow: hidden; /* Para evitar desbordamientos si el cálculo no es perfecto */
+}
+.testimonios-carousel-container {
+    position: relative;
+    max-width: 1050px; /* Ajustado para 3 tarjetas de ~300px + gaps */
+    margin: 0 auto;
+    padding: 0 45px; /* Espacio para los botones de control laterales, un poco menos */
+}
+.testimonios-track-container {
+    overflow: hidden; 
+}
+.testimonios-track {
+    display: flex; 
+    transition: transform 0.5s ease-in-out; 
+}
+.testimonio-card-wrapper {
+    /* Ancho calculado para 3 tarjetas visibles */
+    /* Asumimos un gap entre tarjetas (ej. 30px total, 15px por lado) */
+    /* Si el contenedor principal .testimonios-carousel-container es 1000px de contenido neto (sin padding para botones)
+       y queremos gap de 15px a cada lado de la tarjeta central (total 30px de gap entre 3 tarjetas)
+       Cada tarjeta sería (1000 - 30*2) / 3 = ~313px
+       Pero es mejor usar porcentajes para que se adapte al max-width del contenedor.*/
+
+    min-width: calc((100% / 3) - 5px); /* 3 tarjetas. 20px = (gap * 2) / 3 */
+    /* O un valor fijo si el contenedor tiene max-width:
+       min-width: 320px;  Ajusta este valor */
+    flex: 0 0 calc((100% / 3) - 20px); /* Asegurar que no se encoja/crezca, 20px de 'gap' distribuido */
+    padding: 0 px; /* Este es el gap entre tarjetas, total 20px */
+    box-sizing: border-box;
+}
+.testimonio-card { 
+    background-color: #fff;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%; 
+    min-height: 400px; /* Aumentar altura mínima para más espacio para el texto */
+}
+.testimonio-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--primary-color);
+    flex-shrink: 0; /* Para que la imagen no se encoja */
+}
+.testimonio-texto {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 15px;
+    flex-grow: 1; 
+    font-size: 0.9rem;
+    line-height: 1.6;
+    /* max-height: 150px; QUITAR ESTO para permitir que el texto ocupe más espacio */
+    overflow-y: auto; /* Scroll si el texto es MUY largo y excede min-height de la tarjeta */
+    padding-right: 5px; 
+    width: 100%; /* Asegurar que el texto use el ancho disponible */
+}
+.testimonio-texto::-webkit-scrollbar { width: 5px; }
+.testimonio-texto::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px;}
+
+.testimonio-autor {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 3px;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+.testimonio-info {
+    font-size: 0.8rem;
+    color: #777;
+    flex-shrink: 0;
+}
+
+.testimonio-control {
+    position: absolute;
+    top: calc(50% - 20px); /* Centrar verticalmente respecto a la altura de la tarjeta */
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    padding: 8px 12px; 
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-speed);
+}
+.testimonio-control:hover { background-color: rgba(0, 0, 0, 0.6); }
+.testimonio-control.prev { left: 5px; } /* Ajustar posición de los botones */
+.testimonio-control.next { right: 5px; }
+
+.testimonios-indicators-container {
+    text-align: center;
+    margin-top: 25px;
+    padding-bottom: 10px; /* Espacio debajo */
+    display: flex; /* Para usar gap */
+    justify-content: center;
+    gap: 8px;
+}
+.testimonios-indicators-container .carousel-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc; /* Gris claro */
+    cursor: pointer;
+    border: none;
+    transition: background-color var(--transition-speed), transform 0.2s;
+}
+.testimonios-indicators-container .carousel-indicator.active,
+.testimonios-indicators-container .carousel-indicator:hover {
+    background-color: var(--primary-color); /* Color primario al activar/hover */
+    transform: scale(1.2);
+}
+/* Media query para mostrar menos tarjetas en pantallas pequeñas */
+@media (max-width: 992px) {
+    .testimonios-carousel-container { padding: 0 40px; }
+    .testimonio-card-wrapper {
+        min-width: calc((100% / 2) - 14px); 
+        flex-basis: calc((100% / 2) - 14px);
+    }
+    .testimonio-card { min-height: 380px; }
+}
+@media (max-width: 600px) {
+    .testimonios-carousel-container { padding: 0 35px; }
+    .testimonio-card-wrapper {
+        min-width: 100%; 
+        flex-basis: 100%;
+        padding: 0 5px; 
+    }
+    .testimonio-control.prev { left: 0px; } 
+    .testimonio-control.next { right: 0px; }
+    .testimonio-card { min-height: auto; padding-bottom: 20px;} /* Altura automática en móvil */
+    .testimonio-texto { max-height: none; overflow-y: visible; } /* Permitir que el texto se expanda en móvil */
+}
+
+/* ==========================================================================
+   15. SECCIÓN TRANSPARENCIA
+   ========================================================================== */
+.transparencia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.transparencia-item { background-color: #fff; padding: 30px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center; display: flex; flex-direction: column; }
+.transparencia-item h4 { font-size: 1.4rem; margin-bottom: 15px; }
+.transparencia-item p { font-size: 0.95rem; color: #555; margin-bottom: 20px; flex-grow: 1;}
+.documentos-links { margin-top: auto; }
+.documentos-links .btn, .documentos-links a { margin: 5px; }
+.document-list { list-style: none; padding-left: 0; }
+.document-list li { padding: 10px 0; border-bottom: 1px dashed var(--border-color); }
+.document-list li:last-child { border-bottom: none; }
+.document-list li a { font-weight: 500; }
+.document-list li i { margin-right: 10px; color: var(--accent-color-red); }
+.document-list li span { font-size: 0.85rem; color: #777; margin-left: 10px; }
+
+/* ==========================================================================
+   16. SECCIÓN NORMATIVIDAD
+   ========================================================================== */
+.normatividad-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.normatividad-categoria { background-color: #fff; padding: 30px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+.normatividad-icon i { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 15px; display: block; text-align: center; }
+.normatividad-categoria h4 { text-align: center; font-size: 1.4rem; margin-bottom: 20px; color: var(--primary-color); }
+
+/* ==========================================================================
+   17. SECCIÓN CONVOCATORIAS
+   ========================================================================== */
+.convocatorias-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+.convocatoria-item { background-color: #fff; padding: 30px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); display: flex; flex-direction: column; }
+.convocatoria-icon i { font-size: 2.8rem; color: var(--accent-color-yellow); margin-bottom: 15px; display: block; text-align: center; }
+.convocatoria-item h4 { font-size: 1.4rem; margin-bottom: 10px; }
+.convocatoria-vigencia { font-size: 0.85rem; color: #777; font-style: italic; margin-bottom: 15px; }
+.convocatoria-item p { font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+.convocatoria-item .btn { margin-top: auto; align-self: flex-start; }
+
+/* ==========================================================================
+   18. SECCIÓN APP ESTUDIANTIL (PWA)
+   ========================================================================== */
+#app-estudiantil {
+    /* background-color: var(--light-gray-background); ya es light-section */
+}
+.app-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+    align-items: center; /* Alinear verticalmente si las tarjetas tienen alturas diferentes */
+}
+.app-feature-item {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex; /* Para alinear icono y texto */
+    align-items: flex-start; /* Alinear al inicio verticalmente */
+    gap: 25px;
+}
+.app-icon-wrapper {
+    flex-shrink: 0;
+}
+.app-icon-wrapper .app-showcase-icon {
+    width: 80px; /* Tamaño del icono de la app */
+    height: 80px;
+    border-radius: 16px; /* Bordes redondeados para el icono */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.app-icon-wrapper i { /* Para iconos FontAwesome */
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    width: 50px; /* Mismo tamaño que el img para consistencia */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light-gray-background);
+    border-radius: 5px;
+}
+.app-text-content {
+    display: flex;            /* Activar Flexbox */
+    flex-direction: column;   /* ¡CRUCIAL! Apilar hijos verticalmente */
+    justify-content: flex-start; /* Alinear hijos al inicio del eje principal (vertical) */
+    align-items: flex-start;  /* Alinear hijos al inicio del eje transversal (horizontal) */
+    flex-grow: 1;             /* Para que ocupe el espacio restante en .app-feature-item */
+}
+.app-text-content h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 25px; /* Espacio entre el título y la lista ul */
+    width: 100%;         /* Asegurar que el h3 ocupe todo el ancho disponible para empujar el ul abajo */
+    text-align: left;    /* Asegurar alineación a la izquierda si no se hereda */
+}
+.app-text-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;           /* Quitar márgenes por defecto del ul */
+    width: 100%;         /* Asegurar que el ul también ocupe el ancho */
+}
+.app-text-content ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start; 
+    font-size: 1.0rem;
+    text-align: left; /* Asegurar que el texto dentro del li esté alineado a la izquierda */
+}
+.app-text-content ul li i {
+    color: var(--accent-color-green);
+    margin-right: 15px;
+    font-size: 1.5rem; 
+    margin-top: 3px; 
+    width: 20px; /* Espacio para el icono */
+    flex-shrink: 0;
+}
+.how-to-install h3 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+}
+.install-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 20px;
+}
+.install-step {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    transition: box-shadow 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+/* Hover/focus effect for installation step cards */
+.install-step:hover,
+.install-step:focus {
+    box-shadow: var(--card-shadow);
+    transform: translateY(-5px) scale(1.03);
+    outline: none;
+    background-color: #f5faff;
+}
+.install-step i { /* Iconos de navegador */
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+.install-step h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+.install-step p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+.install-note {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    margin-top: 30px;
+}
+
+/* ==========================================================================
+   19. SECCIÓN SITIOS DE INTERÉS
+   ========================================================================== */
+.sitios-interes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.sitio-item { display: block; background-color: #fff; padding: 25px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center; color: var(--text-color); text-decoration: none; }
+.sitio-item:hover { color: var(--text-color); }
+.sitio-icon i { font-size: 2.8rem; color: var(--accent-color-green); margin-bottom: 15px; }
+.sitio-item h4 { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 10px; }
+.sitio-item p { font-size: 0.9rem; color: #555; }
+
+/* ==========================================================================
+   20. SECCIÓN PREGUNTAS FRECUENTES (FAQ)
+   ========================================================================== */
+#faq .accordion { /* Podemos usar los mismos estilos de acordeón */
+    max-width: 800px; /* Centrar el acordeón si es más estrecho */
+    margin-left: auto;
+    margin-right: auto;
+}
+#faq .accordion-header {
+    /* Puedes añadir estilos específicos si quieres que se vea diferente al de Oferta Educativa */
+    /* ej. background-color: var(--primary-color); color: #fff; */
+}
+#faq .accordion-content p,
+#faq .accordion-content ul {
+    text-align: left; /* Para que el texto de las respuestas esté alineado a la izquierda */
+}
+#faq .accordion-content ul {
+    padding-left: 20px;
+    list-style: disc;
+}
+
+/* ==========================================================================
+   21. SECCIÓN MAPA DEL SITIO
+   ========================================================================== */
+#mapa-sitio {
+    /* background-color: var(--light-gray-background); si es light-section */
+}
+.mapa-sitio-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    text-align: left; /* Alinear texto a la izquierda dentro de las columnas */
+}
+.mapa-sitio-col h4 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-left: 18px;
+    padding-right: 8px;
+}
+.mapa-sitio-col ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px; /* Espacio después de cada lista de una categoría */
+}
+.mapa-sitio-col ul li {
+    margin-bottom: 10px;
+}
+.mapa-sitio-col ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+.mapa-sitio-col ul li a:hover {
+    color: var(--accent-color-red);
+    padding-left: 5px; /* Ligero indentado al hacer hover */
+}
+.mapa-sitio-col ul li a i {
+    margin-right: 10px;
+    color: var(--secondary-color);
+    width: 20px; /* Para alinear los iconos */
+}
+.mapa-sitio-col ul ul { /* Estilos para sub-listas si las usas */
+    padding-left: 20px;
+    margin-top: 8px;
+}
+.mapa-sitio-col ul ul li a {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* ==========================================================================
+   22. SECCIÓN CONTACTO
+   ========================================================================== */
+.contacto-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 40px; }
+@media (min-width: 992px) { .contacto-grid { grid-template-columns: 1fr 1.5fr; } }
+.contacto-info, .contacto-formulario, .quejas-formulario-container { background-color: #fff; padding: 30px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+.contacto-info h3, .contacto-formulario h3 { margin-top: 0; font-size: 1.5rem; margin-bottom: 20px; }
+.contacto-info p { margin-bottom: 15px; line-height: 1.6; display: flex; align-items: flex-start; }
+.contacto-info p i { margin-right: 12px; color: var(--primary-color); font-size: 1.1rem; margin-top: 4px; width: 20px; text-align: center; }
+.social-links-contact a { display: inline-flex; align-items: center; color: var(--primary-color); font-weight: 600; margin-top: 10px; }
+.social-links-contact a:hover { color: var(--accent-color-red); }
+.social-links-contact i { font-size: 1.5rem; margin-right: 8px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; }
+.form-group input[type="text"], .form-group input[type="email"], .form-group textarea, .form-group select { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: var(--border-radius); font-family: var(--font-primary); font-size: 1rem; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+.form-group input[type="text"]:focus, .form-group input[type="email"]:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 0.2rem rgba(13, 71, 161, 0.25); }
+.form-group textarea { resize: vertical; }
+.form-status { margin-top: 15px; font-weight: 600; }
+.form-instruction { font-size:0.8rem; color:#777; margin-bottom:15px; }
+.mapa-ubicacion { margin-top: 40px; text-align: center; }
+.mapa-ubicacion h3 { margin-bottom: 20px; }
+.mapa-ubicacion iframe { box-shadow: var(--box-shadow); }
+.quejas-formulario-container { max-width: 800px; margin-left: auto; margin-right: auto; }
+
+/* ==========================================================================
+   23. FIX PARA MENÚ RESPONSIVO DINÁMICO
+   ========================================================================== */
+/* Forzar el ajuste de línea en la barra de navegación para que el script responsivo pueda detectarlo */
+@media (min-width: 992px) { /* Aplicar solo en pantallas grandes donde el menú está expandido */
+    .navbar-nav {
+        flex-wrap: wrap !important;
+    }
+}
+
+/* ==========================================================================*/
+
+/* ==========================================================================
+   23. FOOTER
+   ========================================================================== */
+.footer { background-color: #222A35; color: #a9b3c1; padding: 30px 0 20px; font-size: 0.9rem; }
+.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-col h4 { color: #fff; margin-bottom: 25px; font-size: 1.3rem; position: relative; padding-bottom: 5px; }
+.footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 50px; height: 3px; background-color: var(--accent-color-red); }
+.footer-col p, .footer-col li { margin-bottom: 12px; }
+.footer-col p i, .footer-col li i { margin-right: 8px; width: 16px; text-align: center; }
+.footer-col a { color: #a9b3c1; } .footer-col a:hover { color: #fff; text-decoration: underline; }
+.social-links a { display: inline-flex; align-items: center; justify-content: center; height: 45px; width: 45px; background-color: rgba(255,255,255,0.1); margin-right: 10px; border-radius: 50%; color: #fff; font-size: 1.1rem; transition: all var(--transition-speed); }
+.social-links a:hover { background-color: var(--accent-color-red); color: #fff; transform: scale(1.1); }
+.slogan-footer { margin-top: 25px; font-style: italic; color: #8a97a8; line-height: 1.5; }
+.footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid #38414e; font-size: 0.85rem; }
+.footer-bottom p { margin-bottom: 8px; }
+
+/* ==========================================================================
+   24. ESTILOS PARA LA INTERFAZ DE LA PWA (Revisión y consolidación)
+   ========================================================================== */
+
+/* Contenedor Principal PWA */
+body.pwa-active-body {
+    overflow: hidden; /* Evitar scroll en el body cuando la PWA está activa */
+}
+body.pwa-active-body > header.header,
+body.pwa-active-body > main > section:not(#pwa-container), /* Ocultar secciones web principales */
+body.pwa-active-body > footer.footer,
+body.pwa-active-body > a.back-to-top {
+    display: none !important; 
+}
+/* Nota: Si tu HTML tiene un <main> que envuelve las secciones, usa ese selector.
+   Si las secciones son hijos directos de body, entonces body > section es correcto. */
+
+#pwa-container.pwa-container-hidden { display: none !important; }
+#pwa-container.active {
+    display: flex; flex-direction: column;
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: var(--light-gray-background); 
+    z-index: 3000; overflow: hidden; 
+}
+
+/* Área de Contenido Scrollable de la PWA */
+.pwa-content-area {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; 
+    padding: 0 15px 15px 15px; /* Remove top padding so header is flush with top */
+    position: relative; /* Para popups internos si es necesario */
+    
+}
+
+/* Vistas de la PWA */
+.pwa-vista { display: none; animation: fadeInPWAView 0.25s ease-out; }
+.pwa-vista.active { display: block; }
+@keyframes fadeInPWAView { from { opacity: 0; } to { opacity: 1; } } /* Animación más sutil */
+
+/* Header de cada Vista PWA */
+.pwa-view-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 12px 15px; /* Ligeramente menos padding */
+    text-align: center;
+    margin: 0 0 20px 0; /* Remove negative margin, keep only bottom margin for spacing below header */
+    position: sticky; top: 0; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* Remove unwanted hover/active/transition effects from header itself */
+    transition: none !important;
+}
+/* Remove hover and pointer from back arrow in PWA header */
+.pwa-view-header .pwa-back-button,
+.pwa-view-header .pwa-back-button:hover,
+.pwa-view-header .pwa-back-button:focus {
+    background: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+    outline: none !important;
+    cursor: pointer;
+}
+.pwa-view-header .pwa-back-button i,
+.pwa-view-header .pwa-back-button:hover i,
+.pwa-view-header .pwa-back-button:focus i {
+    transition: none !important;
+    transform: none !important;
+}
+.pwa-view-header h2 {
+    color: var(--light-text-color);
+    font-size: 1.2rem; /* Título de vista PWA más pequeño */
+    margin: 0;
+    flex-grow: 1; text-align: center;
+}
+button.pwa-back-button {
+    background: none; border: none;
+    color: var(--light-text-color);
+    font-size: 1.3rem; /* Icono de volver más grande */
+    cursor: pointer;
+    padding: 5px 8px;
+    line-height: 1; /* Para mejor alineación vertical del icono */
+}
+button.pwa-back-button i { margin-right: 3px; }
+.pwa-view-header > span { /* Espaciador para centrar título si hay botón de volver */
+    width: 30px; /* Aproximadamente el ancho del botón de volver */
+    flex-shrink: 0;
+}
+
+
+/* Barra de Pestañas Inferior PWA */
+.pwa-tab-bar {
+    display: flex; justify-content: space-around; align-items: stretch; /* stretch para que ocupen altura */
+    background-color: #fff;
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+    padding: 5px 0; /* Padding vertical */
+    flex-shrink: 0; 
+    position: fixed; bottom: 0; left: 0;
+    width: 100%; z-index: 3010; /* Encima del contenido PWA */
+}
+.pwa-tab-item {
+    background: none; border: none; cursor: pointer;
+    padding: 8px 5px; /* Ajustar padding */
+    color: #6c757d; /* Gris más oscuro para inactivo */
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 0.7rem; /* Texto más pequeño */
+    flex-grow: 1; max-width: 20%;
+    transition: color var(--transition-speed-fast) ease, transform 0.1s ease-out;
+    line-height: 1.2;
+}
+.pwa-tab-item i { font-size: 1.4rem; margin-bottom: 3px; }
+.pwa-tab-item.active { color: var(--primary-color); font-weight: 600; }
+.pwa-tab-item:hover:not(.active) { color: var(--secondary-color); }
+.pwa-tab-item:active { /* Al presionar */
+    transform: scale(0.96);
+}
+
+/* Estilos para Contenido Específico de Vistas PWA (Directorio, Horario, Calendario, Avisos, Recursos, Buzón) */
+/* Asegúrate de que los estilos que ya te di para estas secciones (ej. .directorio-lista, 
+   #tabla-horario-semanal, #pwa-calendar-controls, .aviso-card, .recursos-grid-pwa)
+   estén presentes y sean consistentes con este bloque. */
+/* ==========================================================================
+   25. Estilos para la lista del Directorio (Ejemplo)
+   ========================================================================== */
+.directorio-lista {
+    list-style: none;
+    padding: 0;
+}
+.directorio-lista li {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+.directorio-lista li strong {
+    display: block;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+.directorio-lista li p {
+    margin-bottom: 3px;
+    font-size: 0.95rem;
+    color: #555;
+}
+.directorio-lista li p i {
+    margin-right: 8px;
+    color: var(--secondary-color);
+}
+
+/* ==========================================================================
+   26. ESTILOS PARA LA VISTA DE HORARIO PWA
+   ========================================================================== */
+#pwa-vista-horario .horario-controles {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+#horario-dia-actual-pwa {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+}
+#horario-dia-actual-pwa h3 {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+.tarjetas-dia-actual {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+.tarjeta-clase-dia {
+    background-color: var(--light-gray-background);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border-left: 5px solid var(--secondary-color);
+}
+.tarjeta-clase-dia .hora {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+.tarjeta-clase-dia .materia {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 3px;
+}
+.tarjeta-clase-dia .profesor {
+    font-size: 0.85rem;
+    color: #555;
+}
+#mensaje-dia-sin-clases {
+    color: #777;
+    font-style: italic;
+}
+
+
+.horario-semanal-pwa h3 {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.tabla-horario-responsive {
+    overflow-x: auto; /* Para scroll horizontal en pantallas pequeñas */
+    background-color: #fff;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+#tabla-horario-semanal {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Evitar que se comprima demasiado */
+}
+#tabla-horario-semanal th,
+#tabla-horario-semanal td {
+    border: 1px solid var(--border-color);
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 0.85rem;
+    min-width: 80px; /* Ancho mínimo para celdas de día */
+}
+#tabla-horario-semanal th {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    font-weight: 600;
+}
+#tabla-horario-semanal td.hora-col { /* Celda de la hora */
+    font-weight: bold;
+    background-color: var(--light-gray-background);
+    min-width: 90px;
+}
+#tabla-horario-semanal .celda-clase {
+    cursor: pointer; /* Para indicar que se puede editar */
+    transition: background-color 0.2s;
+}
+#tabla-horario-semanal .celda-clase:hover {
+    background-color: #e9f5ff; /* Un azul muy claro */
+}
+#tabla-horario-semanal .celda-clase .materia-tabla {
+    font-weight: bold;
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+}
+#tabla-horario-semanal .celda-clase .profesor-tabla {
+    font-size: 0.75rem;
+    color: #666;
+    display: block;
+}
+#tabla-horario-semanal .celda-receso {
+    background-color: #f0f0f0;
+    font-style: italic;
+    color: #777;
+}
+#mensaje-horario-vacio {
+    color: #777;
+    font-style: italic;
+}
+
+/* Modal para Añadir/Editar Clase PWA */
+#modal-clase-pwa .modal-content {
+    max-width: 500px; /* Ancho del modal */
+}
+#modal-clase-pwa h3 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+
+/* ==========================================================================
+   27. ESTILOS PARA EL CALENDARIO PWA
+   ========================================================================== */
+#calendario-escolar-pwa-container {
+    height: 70vh; /* Usa el 70% de la altura visible de la pantalla */
+    width: 100%;
+    min-height: 450px; /* Altura mínima para que no se colapse */
+    background-color: #fff; /* Fondo por si acaso */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.calendar-controls button,
+.calendar-controls select {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+#pwa-cal-render-range {
+    font-weight: bold;
+}
+#pwa-vista-calendario .pwa-view-content {
+    display: flex;
+    flex-direction: column;
+    overflow: visible !important; /* EVITAR QUE ESTE GENERE SCROLL */
+    /* Sin height o min-height aquí, debe adaptarse a sus hijos */
+}
+#pwa-calendar-controls {
+    flex-shrink: 0; /* Que no se encoja */
+}
+#calendario-escolar-pwa-container {
+    flex-grow: 1; /* Que el calendario use el espacio restante */
+    position: relative; 
+    /* overflow: hidden; QUITAR ESTO, podría ocultar los popups */
+    min-height: 500px; /* Darle una altura mínima para que el calendario se renderice inicialmente */
+}
+#detalle-evento-info p {
+    display: flex; /* Para alinear icono y texto */
+    align-items: flex-start; /* Alinear al inicio si el texto es multilínea */
+    margin-bottom: 12px; /* Espacio entre líneas de detalle */
+    font-size: 0.95rem;
+}
+
+#detalle-evento-info p i {
+    color: var(--secondary-color); /* O el color que prefieras para los iconos */
+    margin-right: 10px;
+    margin-top: 3px; /* Ajuste vertical ligero */
+    width: 18px; /* Ancho fijo para alineación de los textos que siguen */
+    text-align: center;
+}
+
+#detalle-evento-info p strong {
+    color: var(--text-color); /* O var(--primary-color) */
+    margin-right: 5px;
+}
+/* ==========================================================================
+   28. ESTILOS PARA LA VISTA DE AVISOS PWA
+   ========================================================================== */
+#pwa-vista-avisos .avisos-controles {
+    margin-bottom: 20px;
+    text-align: right; /* O center, o left, según prefieras */
+}
+
+#lista-avisos-pwa .mensaje-carga-avisos,
+#lista-avisos-pwa .mensaje-no-avisos {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+    font-style: italic;
+}
+
+.aviso-card {
+    background-color: #fff;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border-left: 5px solid var(--secondary-color);
+}
+
+.aviso-card.urgente {
+    border-left-color: var(--accent-color-red);
+}
+
+.aviso-card h4 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+.aviso-card.urgente h4 {
+    color: var(--accent-color-red);
+}
+
+.aviso-fecha {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.aviso-contenido {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+/* Animación de entrada para las tarjetas de aviso */
+.aviso-card {
+    animation: fadeInAviso 0.5s ease-out forwards;
+}
+
+@keyframes fadeInAviso {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   29. ESTILOS PARA VISTA DE RECURSOS EDUCATIVOS PWA
+   ========================================================================== */
+#pwa-vista-recursos .pwa-view-content {
+    overflow: visible !important; /* EVITAR QUE ESTE GENERE SCROLL */
+    /* Sin height o min-height aquí */
+}
+
+#lista-recursos-pwa {
+    /*border: 5px dotted hotpink !important;*/
+    padding: 10px !important;
+    /*min-height: 300px !important;*/
+    background-color: rgba(0, 255, 0, 0.1) !important;
+}
+
+#lista-recursos-pwa .mensaje-carga-recursos,
+#lista-recursos-pwa .mensaje-no-recursos {
+    text-align: center;
+    color: #777; /* Un gris discreto */
+    padding: 20px;
+    font-style: italic;
+    display: block; /* Para que ocupe su línea si se muestra */
+}
+.recursos-categoria-pwa {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom: 20px !important;
+    padding: 10px !important;
+    min-height: 100px !important; 
+    background-color: rgba(0, 0, 255, 0.1) !important;
+}
+.recursos-categoria-pwa h3.categoria-titulo {
+    display: block;
+    font-size: 1.3rem;
+    color: var(--primary-color); 
+    background-color: transparent; /* Sin fondo especial */
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--secondary-color);
+    text-align: left;
+}
+.recursos-grid-pwa {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; 
+    /* padding: 10px; Ya no es necesario si las tarjetas tienen su propio padding */
+    /* min-height: 100px; Quitar */
+}
+
+.recurso-card { 
+    display: flex; 
+    flex-direction: column; 
+    visibility: visible !important; 
+    opacity: 1 !important;         
+    background-color: #fff;   
+    color: var(--text-color);             
+    border: 1px solid var(--border-color);  
+    padding: 20px;
+    border-radius: var(--border-radius); 
+    box-shadow: var(--box-shadow);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%; 
+    min-height: 180px; 
+}
+.recurso-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow);
+    color: var(--text-color) !important; /* Mantener color de texto al pasar el mouse */
+    background-color: #fff !important; /* Mantener el fondo blanco de la tarjeta, o un ligero cambio si quieres */
+}
+
+.recurso-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+
+}
+.recurso-card-header i {
+    font-size: 2.5rem; 
+    color: var(--secondary-color);
+    width: 30px; 
+    text-align: center;
+    flex-shrink: 0;
+}
+.recurso-card-header h4 {
+    font-size: 1.1rem;
+    color: var(--primary-color); 
+    margin: 0;
+    flex-grow: 1;
+}
+.recurso-descripcion {
+    font-size: 0.85rem;
+    color: #555; 
+    line-height: 1.5;
+    flex-grow: 1; 
+    margin-bottom: 10px;
+    text-align: left;
+}
+.recurso-tipo {
+    font-size: 0.75rem;
+    color: #fff; 
+    background-color: var(--secondary-color); 
+    padding: 3px 8px;
+    border-radius: 4px;
+    align-self: flex-end; 
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: auto; 
+}
+.recurso-card.pdf .recurso-tipo { background-color: var(--accent-color-red); }
+.recurso-card.video-externo .recurso-tipo { background-color: #c4302b; } 
+.recurso-card.enlace-externo .recurso-tipo { background-color: var(--accent-color-green); }
+
+
+/* ==========================================================================
+   30. ESTILOS PARA LA SECCIÓN DE PREGUNTAS FRECUENTES (FAQ)
+   ========================================================================== */
+#pwa-vista-buzon input, 
+#pwa-vista-buzon select {
+    font-size: 0.95rem;
+}
+#pwa-vista-buzon .btn-primary {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto 0 auto;
+    padding: 12px;
+}
+
+/* Estilos para la lista en "Más Opciones" */
+#pwa-vista-mas ul { padding: 0; list-style: none; }
+#pwa-vista-mas ul li { margin-bottom: 0; }
+#pwa-vista-mas ul li a.pwa-mas-link {
+    display: block;
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+#pwa-vista-mas ul li a.pwa-mas-link:hover {
+    background-color: var(--light-gray-background);
+}
+
+
+/* Barra de Pestañas Inferior */
+.pwa-tab-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    flex-shrink: 0; /* Para que no se encoja */
+    position: sticky; /* Si quieres que se quede fija abajo, pero puede ser complicado con el scroll del contenido */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+.pwa-tab-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 10px;
+    color: #777; /* Color de icono/texto inactivo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem; /* Tamaño del texto debajo del icono */
+    flex-grow: 1; /* Para que ocupen el espacio equitativamente */
+    max-width: 20%; /* Para 5 items */
+}
+.pwa-tab-item i {
+    font-size: 1.5rem; /* Tamaño del icono */
+    margin-bottom: 4px;
+}
+.pwa-tab-item.active {
+    color: var(--primary-color); /* Color del ítem activo */
+}
+.pwa-tab-item:hover {
+    color: var(--secondary-color);
+}
+
+/* ==========================================================================
+   31. BOTÓN VOLVER ARRIBA (Revisión)
+   ========================================================================== */
+.back-to-top {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background-color: var(--accent-color-red);
+    color: white;
+    width: 48px; height: 48px; /* Ligeramente más grande */
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: var(--card-shadow);
+    opacity: 0; visibility: hidden;
+    transition: opacity var(--transition-speed-fast) ease, 
+                visibility 0s linear var(--transition-speed-fast), 
+                transform var(--transition-speed-fast) ease;
+    z-index: 999;
+}
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+}
+.back-to-top:hover {
+    background-color: #A31F1F; /* Rojo más oscuro */
+    transform: scale(1.05) translateY(-2px); /* Efecto hover sutil */
+}
+
+/* ==========================================================================
+   32. MEDIA QUERIES (Revisión y Consolidación)
+   ========================================================================== */
+/* Las media queries que ya tenías para el header, .logo, .nav-toggle, etc.
+   deberían seguir funcionando. Aquí se pueden añadir ajustes específicos si algo
+   se rompe con los nuevos estilos o para las nuevas secciones. */
+
+@media (max-width: 1080px) { /* Breakpoint intermedio */
+    #nav-menu-items li { margin-left: 12px; }
+    a.nav-link, button.nav-more-button { font-size: 0.75rem; } /* Ajustado */
+    .logo { height: 60px; }
+    .header.scrolled .logo { height: 50px; }
+    .logo-text h1 { font-size: 1.2rem; }
+}
+
+@media (max-width: 992px) { /* Tablet y móvil grande - Menú Hamburguesa */
+    html { font-size: 15px; }
+    .logo-text { display: none; } 
+    .logo { height: 55px; margin-right: 0; } 
+    .header.scrolled .logo { height: 48px; }
+    
+    #nav-menu-items:not(.active) { display: none !important; } 
+    .nav-more-container { display: none !important; }    
+    button.nav-toggle { display: block !important; }           
+    
+    ul#nav-menu-items.active { /* Estilos del menú hamburguesa desplegado */
+        display: flex !important; position: absolute; top: 100%; left: 0; 
+        background-color: var(--background-color); width: 100%; 
+        flex-direction: column; align-items: stretch; padding: 10px 0; 
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1); z-index: 1005; /* Encima del header fijo */
+    }
+    ul#nav-menu-items.active li { margin: 0; }
+    ul#nav-menu-items.active a.nav-link { 
+        display: block; padding: 15px 25px; font-size: 1rem; 
+        border-bottom: 1px solid var(--border-color); text-align: left; 
+    }
+    ul#nav-menu-items.active li:last-child a.nav-link { border-bottom: none; }
+    ul#nav-menu-items.active a.nav-link::after { display: none; }
+    ul#nav-menu-items.active a.nav-link.active, 
+    ul#nav-menu-items.active a.nav-link:hover { background-color: var(--light-gray-background); }
+
+    .hero-section { min-height: 70vh; }
+    .hero-section h2 { font-size: 2.5rem; } .hero-section p { font-size: 1.15rem; }
+    
+    .director-message-container { flex-direction: column; align-items: center; text-align:center; }
+    .director-photo { max-width: 250px; margin-bottom: 20px; }
+    .director-buttons { text-align: center; }
+    
+    .oferta-grid, .services-grid, .vida-estudiantil-grid, .transparencia-grid, 
+    .normatividad-grid, .convocatorias-grid, .sitios-interes-grid, .egresados-content,
+    .mapa-sitio-columns, .app-features-grid, .install-steps-grid, .features-grid { 
+        grid-template-columns: 1fr; /* Forzar una columna */
+    }
+    .contacto-grid { grid-template-columns: 1fr; }
+    .event-carousel { height: 350px; }
+    .testimonios-carousel-container { padding: 0 35px; }
+    .testimonio-card-wrapper { min-width: calc((100% / 2) - 14px); flex-basis: calc((100% / 2) - 14px); }
+    .testimonio-card { min-height: 380px; }
+
+    /* PWA Tab bar en móvil */
+    .pwa-tab-item i { font-size: 1.3rem; }
+    .pwa-tab-item span { font-size: 0.65rem; }
+}
+
+@media (max-width: 600px) { /* Móvil Pequeño */
+    html { font-size: 14px; }
+    .hero-section h2 { font-size: 2rem; } .hero-section p { font-size: 1rem; }
+    .hero-buttons { display: flex; flex-direction: column; align-items: center; }
+    .hero-buttons .btn { padding: 12px 25px; font-size: 0.95rem; margin: 8px 0; width: 90%; max-width: 280px; }
+    
+    .section-title { font-size: 1.8rem; }
+    .section-subtitle { font-size: 0.95rem; margin: -1.5rem auto 2rem auto; }
+
+    .testimonio-card-wrapper { min-width: 100%; flex-basis: 100%; padding: 0 5px; }
+    .testimonios-carousel-container { padding: 0 30px; }
+    .testimonio-control.prev { left: -2px; } .testimonio-control.next { right: -2px; }
+    .testimonio-card { min-height: auto; }
+    .testimonio-texto { max-height: none; overflow-y: visible; }
+
+    .event-carousel { height: 300px; }
+    .carousel-control { width: 40px; height: 40px; font-size: 1.3rem; }
+    .carousel-indicators-container { bottom: 15px; }
+    .hero-section .carousel-indicators-container.hero-indicators-standalone { margin-top: -35px; } 
+
+    .modal-content { width: 95%; margin: 5vh auto; padding: 20px; }
+    .modal-title { font-size: 1.5rem; }
+}
+
+@media (max-width: 400px) { /* Ajustes muy finos para pantallas extra pequeñas */
+    .logo { height: 50px; }
+    .header.scrolled .logo { height: 40px; }
+    .hero-section h2 { font-size: 1.7rem; }
+    .pwa-tab-item i { font-size: 1.2rem; }
+    .pwa-tab-item span { font-size: 0.6rem; }
+}

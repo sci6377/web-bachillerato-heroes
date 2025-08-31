@@ -1,0 +1,22 @@
+{
+  "noticias": [
+    {
+      "title": "Inscripciones Abiertas 2025",
+      "date": "2024-12-01T00:00:00.000Z",
+      "image": "images/noticias/inscripciones-2025.jpg",
+      "summary": "Ya están abiertas las inscripciones para el ciclo escolar 2025-2026. ¡No te quedes fuera!",
+      "content": "# Inscripciones Abiertas 2025\n\nNos complace anunciar que ya están abiertas las inscripciones para el ciclo escolar 2025-2026.\n\n## Requisitos:\n- Certificado de secundaria\n- Acta de nacimiento\n- CURP\n- 6 fotografías tamaño infantil\n\n## Fechas importantes:\n- Inicio de inscripciones: 1 de diciembre 2024\n- Cierre de inscripciones: 28 de febrero 2025\n- Examen de admisión: 15 de marzo 2025\n\n¡Te esperamos en nuestra institución educativa!",
+      "author": "Dirección Académica",
+      "category": "Comunicado"
+    },
+    {
+      "title": "Día del Estudiante 2025",
+      "date": "2025-01-15T00:00:00.000Z",
+      "image": "images/eventos/dia-estudiante-2025.jpg",
+      "summary": "Celebraremos el Día del Estudiante con actividades especiales los días 11 y 12 de junio.",
+      "content": "# Día del Estudiante 2025\n\n¡Celebremos juntos el Día del Estudiante!\n\n## Programa de actividades:\n\n### 11 de junio:\n- 9:00 AM - Ceremonia de inauguración\n- 10:00 AM - Concursos académicos\n- 2:00 PM - Actividades deportivas\n\n### 12 de junio:\n- 9:00 AM - Festival cultural\n- 11:00 AM - Presentaciones artísticas\n- 1:00 PM - Clausura y premiación\n\n¡No falten a esta gran celebración!",
+      "author": "Coordinación Estudiantil",
+      "category": "Evento"
+    }
+  ]
+}

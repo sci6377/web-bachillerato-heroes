@@ -1,0 +1,132 @@
+{
+  "name": "Bachillerato Héroes de la Patria",
+  "short_name": "Héroes Patria",
+  "description": "Aplicación estudiantil del Bachillerato General Estatal Héroes de la Patria.",
+  "lang": "es-MX",
+  "dir": "ltr",
+  "start_url": "/index.html?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0D47A1",
+  "theme_color": "#1976D2",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "categories": ["education", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Ver Calendario",
+      "short_name": "Calendario",
+      "description": "Consulta el calendario escolar y eventos",
+      "url": "/calendario.html?source=pwa"
+    },
+    {
+      "name": "Tareas Pendientes",
+      "short_name": "Tareas",
+      "description": "Revisa tus tareas y actividades pendientes",
+      "url": "/tareas.html?source=pwa"
+    },
+    {
+      "name": "Contacto",
+      "short_name": "Contacto",
+      "description": "Información de contacto de la institución",
+      "url": "/contacto.html?source=pwa"
+    },
+    {
+      "name": "Nueva tarea",
+      "short_name": "Tarea",
+      "description": "Agregar una nueva tarea",
+      "url": "/nueva-tarea?source=pwa"
+    },
+    {
+      "name": "Ver calificaciones",
+      "short_name": "Calificaciones",
+      "description": "Revisar calificaciones recientes",
+      "url": "/calificaciones?source=pwa"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshots/screenshot1_desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/screenshots/screenshot1_desktop.webp",
+      "sizes": "1280x720",
+      "type": "image/webp"
+    },
+    {
+      "src": "/images/screenshots/screenshot1_mobile.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/screenshots/screenshot1_mobile.webp",
+      "sizes": "540x720",
+      "type": "image/webp"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/images/app_icons/icon-1024x1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/app_icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/app_icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/app_icons/icon-1024x1024.webp",
+      "sizes": "1024x1024",
+      "type": "image/webp"
+    },
+    {
+      "src": "/images/app_icons/icon-192x192.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "/images/app_icons/icon-512x512.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    },
+    {
+      "src": "/images/app_icons/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "share_target": {
+    "action": "/compartir",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "file_handlers": [
+    {
+      "action": "/subir-tarea",
+      "accept": {
+        "application/pdf": [".pdf"],
+        "application/msword": [".doc"],
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"]
+      },
+      "name": "Documentos de tarea"
+    }
+  ],
+  "handle_links": "preferred",
+  "permissions": [
+    "notifications",
+    "clipboard-write"
+  ]
+}
