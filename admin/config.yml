@@ -20,7 +20,12 @@ collections:
           - { label: "Nombre de la Institución", name: "institution_name", widget: "string" }
           - { label: "CCT", name: "cct", widget: "string" }
           - { label: "Dirección", name: "address", widget: "text" }
+          - { label: "Teléfono", name: "phone", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
+          - { label: "Horario de Atención", name: "schedule", widget: "string" }
+          - { label: "Misión", name: "mission", widget: "text" }
+          - { label: "Visión", name: "vision", widget: "text" }
+          - { label: "Valores", name: "values", widget: "text" }
 
   - name: "testimonios"
     label: "Testimonios"
@@ -36,3 +41,54 @@ collections:
               - { label: "Nombre", name: "nombre", widget: "string" }
               - { label: "Testimonio", name: "texto", widget: "text" }
               - { label: "Imagen", name: "imagen", widget: "string", required: false }
+              - { label: "Información Extra", name: "infoExtra", widget: "string", required: false }
+
+  - name: "noticias"
+    label: "Noticias"
+    files:
+      - name: "noticias"
+        label: "Lista de Noticias"
+        file: "data/noticias.json"
+        fields:
+          - name: "noticias"
+            label: "Noticias"
+            widget: "list"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Fecha", name: "date", widget: "datetime" }
+              - { label: "Resumen", name: "summary", widget: "text" }
+              - { label: "Contenido", name: "content", widget: "markdown" }
+              - { label: "Autor", name: "author", widget: "string" }
+              - { label: "Categoría", name: "category", widget: "select", options: ["Comunicado", "Evento", "Aviso"] }
+
+  - name: "docentes"
+    label: "Personal Docente"
+    files:
+      - name: "docentes"
+        label: "Lista de Docentes"
+        file: "data/docentes.json"
+        fields:
+          - name: "docentes"
+            label: "Docentes"
+            widget: "list"
+            fields:
+              - { label: "Nombre Completo", name: "name", widget: "string" }
+              - { label: "Cargo", name: "position", widget: "string" }
+              - { label: "Email", name: "email", widget: "string", required: false }
+              - { label: "Especialización", name: "specialization", widget: "string", required: false }
+
+  - name: "eventos"
+    label: "Eventos"
+    files:
+      - name: "eventos"
+        label: "Calendario de Eventos"
+        file: "data/eventos_calendario_pwa.json"
+        fields:
+          - name: "eventos"
+            label: "Eventos"
+            widget: "list"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Fecha de Inicio", name: "start", widget: "datetime" }
+              - { label: "Fecha de Fin", name: "end", widget: "datetime", required: false }
+              - { label: "Descripción", name: "description", widget: "text" }
