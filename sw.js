@@ -17,7 +17,8 @@ const CONFIG = {
   NETWORK_FIRST_PATTERNS: [
     /\/api\//,        // Todas las llamadas a APIs
     /\/auth\//,      // Rutas de autenticación
-    /\/notifications/ // Notificaciones
+    /\/notifications/, // Notificaciones
+    /\/data\//        // Datos dinámicos
   ],
   // Rutas que deben usar la estrategia de solo caché
   CACHE_ONLY_PATTERNS: [
@@ -1048,4 +1049,107 @@ self.addEventListener('pushsubscriptionchange', event => {
         console.error('[SW] Error al manejar el cambio de suscripción:', error);
       })
   );
+});
+
+// ===== NOTIFICACIONES PUSH =====
+
+/**
+ * Manejo de notificaciones push
+ */
+self.addEventListener('push', event => {
+  console.log('[SW] Notificación push recibida:', event);
+  
+  let notificationData = {
+    title: 'Bachillerato Héroes de la Patria',
+    body: 'Tienes una nueva notificación',
+    icon: '/images/logo/logo-bachillerato-HDLP.webp',
+    badge: '/images/logo/logo-bachillerato-HDLP.webp',
+    tag: 'heroes-notification',
+    data: {
+      url: '/'
+    }
+  };
+  
+  if (event.data) {
+    try {
+      notificationData = Object.assign(notificationData, event.data.json());
+    } catch (error) {
+      console.error('[SW] Error parsing notification data:', error);
+    }
+  }
+  
+  const options = {
+    body: notificationData.body,
+    icon: notificationData.icon,
+    badge: notificationData.badge,
+    tag: notificationData.tag,
+    data: notificationData.data,
+    actions: [
+      {
+        action: 'open',
+        title: 'Abrir',
+        icon: '/images/icons/open.png'
+      },
+      {
+        action: 'close',
+        title: 'Cerrar',
+        icon: '/images/icons/close.png'
+      }
+    ],
+    requireInteraction: false,
+    silent: false
+  };
+  
+  event.waitUntil(
+    self.registration.showNotification(notificationData.title, options)
+  );
+});
+
+/**
+ * Manejo de clicks en notificaciones
+ */
+self.addEventListener('notificationclick', event => {
+  console.log('[SW] Click en notificación:', event);
+  
+  event.notification.close();
+  
+  const action = event.action;
+  const url = event.notification.data?.url || '/';
+  
+  if (action === 'close') {
+    return;
+  }
+  
+  // Abrir o enfocar la aplicación
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then(clientList => {
+      // Si ya hay una ventana abierta, enfocarla
+      for (const client of clientList) {
+        if (client.url.includes(self.registration.scope) && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // Si no hay ventana abierta, abrir una nueva
+      if (clients.openWindow) {
+        return clients.openWindow(url);
+      }
+    })
+  );
+});
+
+/**
+ * Manejo del cierre de notificaciones
+ */
+self.addEventListener('notificationclose', event => {
+  console.log('[SW] Notificación cerrada:', event);
+  
+  // Opcional: reportar al servidor que la notificación fue cerrada
+  // fetch('/api/notification-closed', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ 
+  //     tag: event.notification.tag,
+  //     timestamp: Date.now()
+  //   })
+  // });
 });

@@ -30,6 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     const egresadosForm = document.getElementById('egresadosForm');
     const quejasForm = document.getElementById('quejasForm');
+    
+    // Dark Mode
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkModeIcon = document.getElementById('darkModeIcon');
 
     // --- LÓGICA DE LA UI PRINCIPAL ---
 
@@ -128,11 +132,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (openModalButtons.length > 0) {
         openModalButtons.forEach(button => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', async () => {
                 const modalId = button.getAttribute('data-modal-id');
                 const targetModal = document.getElementById(modalId);
                 if (targetModal) {
-                    activeModal = targetModal; 
+                    activeModal = targetModal;
+                    
+                    // Buscar el contenedor de contenido
+                    const contentContainer = targetModal.querySelector('.modal-scrollable-content');
+                    if (contentContainer) {
+                        const contentUrl = contentContainer.getAttribute('data-content-url');
+                        
+                        // Si tiene data-content-url y no ha sido cargado previamente
+                        if (contentUrl && !contentContainer.hasAttribute('data-loaded')) {
+                            try {
+                                const response = await fetch(contentUrl);
+                                if (response.ok) {
+                                    const htmlContent = await response.text();
+                                    contentContainer.innerHTML = htmlContent;
+                                    contentContainer.setAttribute('data-loaded', 'true');
+                                } else {
+                                    contentContainer.innerHTML = '<p style="text-align: center; color: #e74c3c; padding: 2rem;"><i class="fas fa-exclamation-triangle"></i><br>Error al cargar el contenido.<br>Por favor, inténtalo de nuevo.</p>';
+                                }
+                            } catch (error) {
+                                console.error('Error cargando contenido del modal:', error);
+                                contentContainer.innerHTML = '<p style="text-align: center; color: #e74c3c; padding: 2rem;"><i class="fas fa-wifi"></i><br>Error de conexión.<br>Verifica tu conexión a internet.</p>';
+                            }
+                        }
+                    }
+                    
+                    // Mostrar el modal
                     activeModal.style.display = "block";
                     document.body.style.overflow = 'hidden'; 
                 }
@@ -491,12 +520,118 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => console.log('SW registrado:', registration.scope))
-                    .catch(error => console.error('SW registro fallido:', error));
+            window.addEventListener('load', async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register('/sw-offline-first.js');
+                    console.log('🚀 Offline-First SW registrado:', registration.scope);
+                    
+                    // Manejar actualizaciones del service worker
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.log('🔄 Nueva versión disponible. Recargando...');
+                                showUpdateNotification();
+                            }
+                        });
+                    });
+                    
+                    // Escuchar mensajes del service worker
+                    navigator.serviceWorker.addEventListener('message', event => {
+                        const { type, message } = event.data || {};
+                        switch (type) {
+                            case 'SW_READY':
+                                console.log('✅ Service Worker listo para modo offline');
+                                showOfflineCapabilityNotification();
+                                break;
+                            case 'CACHE_CLEARED':
+                                console.log('🧹 Cache limpiada');
+                                break;
+                        }
+                    });
+                    
+                } catch (error) {
+                    console.error('❌ Error registrando SW offline-first:', error);
+                    // Fallback al service worker original
+                    try {
+                        await navigator.serviceWorker.register('/sw.js');
+                        console.log('📱 Fallback SW registrado');
+                    } catch (fallbackError) {
+                        console.error('❌ Error con fallback SW:', fallbackError);
+                    }
+                }
             });
         }
+    }
+
+    // --- PWA OFFLINE-FIRST NOTIFICATION FUNCTIONS ---
+    function showUpdateNotification() {
+        // Crear notificación de actualización disponible
+        const notification = document.createElement('div');
+        notification.className = 'update-notification';
+        notification.innerHTML = `
+            <div class="update-content">
+                <i class="fas fa-download"></i>
+                <span>Nueva versión disponible</span>
+                <button onclick="location.reload()" class="update-btn">Actualizar</button>
+                <button onclick="this.parentElement.parentElement.remove()" class="dismiss-btn">×</button>
+            </div>
+        `;
+        notification.style.cssText = `
+            position: fixed; top: 20px; right: 20px; z-index: 10000;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white; padding: 15px; border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            animation: slideInFromRight 0.5s ease;
+        `;
+        document.body.appendChild(notification);
+        
+        // Auto-remove después de 10 segundos
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 10000);
+    }
+
+    function showOfflineCapabilityNotification() {
+        // Solo mostrar si es la primera vez
+        if (localStorage.getItem('offlineNotificationShown')) return;
+        
+        setTimeout(() => {
+            const notification = document.createElement('div');
+            notification.className = 'offline-ready-notification';
+            notification.innerHTML = `
+                <div class="offline-content">
+                    <i class="fas fa-wifi"></i>
+                    <div class="offline-text">
+                        <strong>¡Ya puedes usar la página sin internet!</strong>
+                        <p>Todo el contenido está disponible offline 📱</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="dismiss-btn">×</button>
+                </div>
+            `;
+            notification.style.cssText = `
+                position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 10000;
+                background: linear-gradient(135deg, #00C851, #007E33);
+                color: white; padding: 15px; border-radius: 10px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                animation: slideInFromBottom 0.5s ease;
+                max-width: 400px; margin: 0 auto;
+            `;
+            document.body.appendChild(notification);
+            
+            // Marcar como mostrado
+            localStorage.setItem('offlineNotificationShown', 'true');
+            
+            // Auto-remove después de 8 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOutToBottom 0.5s ease';
+                    setTimeout(() => notification.remove(), 500);
+                }
+            }, 8000);
+        }, 2000);
     }
 
     // --- 16. MANEJO DE FORMULARIOS (Formspree) ---
@@ -531,6 +666,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => { egresadosFormMessages.textContent = ''; }, 8000);
             });
         }
+    }
+
+    // ===== DARK MODE FUNCTIONALITY =====
+    
+    if (darkModeToggle && darkModeIcon) {
+        // Check for saved dark mode preference or default to light mode
+        const savedTheme = localStorage.getItem('darkMode');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Initialize dark mode based on saved preference or system preference
+        if (savedTheme === 'enabled' || (!savedTheme && prefersDarkScheme)) {
+            document.body.classList.add('dark-mode');
+            darkModeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        // Toggle dark mode
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('darkMode')) {
+                if (e.matches) {
+                    document.body.classList.add('dark-mode');
+                    darkModeIcon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    darkModeIcon.classList.replace('fa-sun', 'fa-moon');
+                }
+            }
+        });
     }
 
 });

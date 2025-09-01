@@ -2,6 +2,508 @@
    1. RESET BÁSICO, VARIABLES Y ESTILOS GLOBALES
    ========================================================================== */
 
+/* Skip links for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+    font-weight: bold;
+    z-index: 10000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+    color: white;
+}
+
+/* Improved focus styles */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --text-color: #000000;
+        --muted-text-color: #333333;
+        --primary-color: #003366;
+        --secondary-color: #004499;
+    }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+}
+
+/* Better button accessibility */
+button, .btn {
+    min-height: 44px; /* WCAG minimum touch target size */
+    min-width: 44px;
+}
+
+/* Ensure text has sufficient contrast */
+.text-muted {
+    color: var(--muted-text-color) !important;
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* ===== DARK MODE STYLES ===== */
+/* Dark mode toggle button */
+.dark-mode-toggle {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    --background-color: var(--dark-bg-primary);
+    --light-gray-background: var(--dark-bg-secondary);
+    --text-color: var(--dark-text-primary);
+    --muted-text-color: var(--dark-text-secondary);
+    --border-color: var(--dark-border);
+    
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+body.dark-mode .navbar {
+    background-color: var(--dark-bg-secondary) !important;
+    border-bottom: 1px solid var(--dark-border);
+}
+
+body.dark-mode .navbar-brand,
+body.dark-mode .nav-link {
+    color: var(--dark-text-primary) !important;
+}
+
+body.dark-mode .nav-link:hover {
+    color: var(--secondary-color) !important;
+}
+
+body.dark-mode .card,
+body.dark-mode .modal-content {
+    background-color: var(--dark-bg-secondary);
+    border-color: var(--dark-border);
+    color: var(--dark-text-primary);
+}
+
+body.dark-mode .footer {
+    background-color: var(--dark-bg-tertiary);
+    border-top: 1px solid var(--dark-border);
+}
+
+body.dark-mode .btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border: none;
+}
+
+/* Dark mode carousel indicators */
+body.dark-mode .carousel-indicator {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+body.dark-mode .carousel-indicator.active,
+body.dark-mode .carousel-indicator:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===== MICRO-ANIMACIONES SUAVES ===== */
+
+/* Subtle entrance animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Apply subtle animations to elements */
+.animate-fade-in {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+}
+
+.animate-fade-in.delay-1 { animation-delay: 0.1s; }
+.animate-fade-in.delay-2 { animation-delay: 0.2s; }
+.animate-fade-in.delay-3 { animation-delay: 0.3s; }
+
+/* Enhanced button hover effects */
+.btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+    transition: transform 0.1s;
+}
+
+/* Enhanced card interactions */
+.card-hover {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Smooth form focus effects */
+input:focus,
+textarea:focus,
+select:focus {
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 13, 71, 161), 0.1);
+    border-color: var(--primary-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Navigation link hover effects */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 80%;
+}
+
+/* Carousel transition improvements */
+.carousel-slide {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modal entrance animation */
+.modal {
+    backdrop-filter: blur(2px);
+    transition: backdrop-filter 0.3s ease;
+}
+
+.modal-content {
+    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Loading state animations */
+.modal-loader {
+    animation: fadeInUp 0.3s ease;
+}
+
+/* Scroll indicator animation */
+.back-to-top {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-top:hover {
+    transform: translateY(-3px);
+}
+
+/* Notification badge pulse */
+.notification-badge {
+    animation: pulse 2s infinite;
+}
+
+/* Interactive elements scaling */
+button, .btn, a[role="button"] {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active, .btn:active, a[role="button"]:active {
+    transform: scale(0.98);
+}
+
+/* Gentle page transitions */
+.page-transition {
+    opacity: 0;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ===== CHATBOT STYLES ===== */
+
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+}
+
+.chatbot-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 12px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.message.bot {
+    background: #f1f3f4;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.message.user {
+    background: var(--secondary-color);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.chatbot-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    border-radius: 0 0 15px 15px;
+}
+
+.chatbot-input input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 15px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.chatbot-input button {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.chatbot-toggle {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 24px;
+    z-index: 1001;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.typing-indicator {
+    display: none;
+    padding: 10px 12px;
+    background: #f1f3f4;
+    border-radius: 15px;
+    border-bottom-left-radius: 5px;
+    align-self: flex-start;
+}
+
+.typing-dots {
+    display: inline-block;
+    position: relative;
+}
+
+.typing-dots span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #999;
+    margin: 0 1px;
+    animation: typing 1.4s infinite;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: 0s; }
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-10px); opacity: 1; }
+}
+
+/* Dark mode chatbot */
+body.dark-mode .chatbot-container {
+    background: var(--dark-bg-secondary);
+    color: var(--dark-text-primary);
+}
+
+body.dark-mode .message.bot {
+    background: var(--dark-bg-tertiary);
+    color: var(--dark-text-primary);
+}
+
+body.dark-mode .chatbot-input {
+    border-top-color: var(--dark-border);
+}
+
+body.dark-mode .chatbot-input input {
+    background: var(--dark-bg-tertiary);
+    border-color: var(--dark-border);
+    color: var(--dark-text-primary);
+}
+
 /* Importación de Fuentes (Google Fonts) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap');
 
@@ -75,13 +577,21 @@ footer.card-hover:focus {
     --accent-color-green: #388E3C; /* Verde para elementos positivos/confirmación */
     
     /* Colores de Texto y Fondo */
-    --text-color: #333333; /* Color de texto principal */
-    --light-text-color: #f4f4f4; /* Para texto sobre fondos oscuros */
-    --muted-text-color: #555555; /* Para texto secundario o menos importante */
+    --text-color: #212529; /* Color de texto principal - mejorado contraste */
+    --light-text-color: #ffffff; /* Para texto sobre fondos oscuros - máximo contraste */
+    --muted-text-color: #495057; /* Para texto secundario - mejor contraste */
     --heading-color: var(--primary-color); /* Color para la mayoría de los encabezados */
 
     --background-color: #FFFFFF; /* Fondo principal de la página */
     --light-gray-background: #f8f9fa; /* Fondo para secciones alternas */
+    
+    /* Dark mode variables */
+    --dark-bg-primary: #121212;
+    --dark-bg-secondary: #1e1e1e;
+    --dark-bg-tertiary: #2d2d2d;
+    --dark-text-primary: #ffffff;
+    --dark-text-secondary: #b3b3b3;
+    --dark-border: #333333;
     --dark-footer-background: #222A35; /* Fondo oscuro para el footer */
     --border-color: #dee2e6; /* Color de borde general */
 
@@ -304,7 +814,7 @@ picture {
     /* No necesita estilos adicionales si .carousel-wrapper ya es absoluto y 100% */
 }
 
-.hero-indicators-standalone { position: absolute; bottom: 20px; left: 0; z-index: 2; } 
+.hero-indicators-standalone { position: absolute; bottom: 10px; left: 0; z-index: 2; } 
 .carousel-container { /* Contenedor de los slides y controles prev/next */
     position: relative;
     width: 100%;
@@ -371,15 +881,15 @@ picture {
 /* Indicadores del Carrusel (Dots/Bullets) */
 .carousel-indicators-container { /* Contenedor que posiciona los dots */
     position: absolute;
-    bottom: 25px; /* Ajusta esta distancia desde abajo */
+    bottom: 5px; /* Ajusta esta distancia desde abajo */
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
     display: flex; /* Para usar gap */
-    gap: 8px;
-    padding: 8px 12px; /* Padding alrededor de los dots */
-    background-color: rgba(0, 0, 0, 0.25); /* Ligero fondo para legibilidad */
-    border-radius: 16px; /* Bordes redondeados para el contenedor de dots */
+    gap: 8px; /* Gap reducido para indicadores minúsculos */
+    padding: 4px 8px; /* Padding reducido */
+    background-color: rgba(0, 0, 0, 0.15); /* Fondo más sutil */
+    border-radius: 8px; /* Bordes más pequeños */
 }
 /* Si los indicadores están fuera del wrapper principal, necesitarán posicionamiento estático */
 #evento-destacado .carousel-indicators-container { 
@@ -393,28 +903,32 @@ picture {
 }
 
 .carousel-indicator { /* Estilo del dot individual */
-    width: 10px; /* Más pequeños */
-    height: 10px;
+    width: 4px; /* MUY pequeños */
+    height: 4px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5); /* Dots blancos semitransparentes para Hero */
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
     cursor: pointer;
-    padding: 0; /* Sin padding interno */
-    margin: 0; /* El gap del contenedor ya los separa */
-    transition: background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease;
+    padding: 0;
+    margin: 0;
+    transition: all 0.2s ease;
+    box-shadow: none;
 }
 .carousel-indicator.active,
 .carousel-indicator:hover {
-    background-color: rgba(255, 255, 255, 0.9); /* Más opaco al activar/hover */
-    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    transform: scale(1.1); /* Escalado sutil */
+    box-shadow: none;
 }
 
 /* Indicadores para carruseles sobre fondo claro (ej. Evento Destacado, Testimonios) */
 .event-carousel + .carousel-indicators-container .carousel-indicator, /* Si va después del div del carrusel */
 .event-carousel .carousel-indicators .carousel-indicator, /* Si va dentro */
 .testimonios-indicators-container .carousel-indicator {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    width: 4px; /* Consistentes y pequeños */
+    height: 4px;
 }
 .event-carousel + .carousel-indicators-container .carousel-indicator.active,
 .event-carousel + .carousel-indicators-container .carousel-indicator:hover,
@@ -908,6 +1422,106 @@ picture {
 }
 
 /* ==========================================================================
+   DARK MODE STYLES FOR POPUPS
+   ========================================================================== */
+
+/* Popups del organigrama en modo oscuro */
+body.dark-mode .org-info-popup {
+    background-color: #1e1e1e !important; /* Fondo más oscuro pero legible */
+    color: #e0e0e0 !important; /* Texto más claro */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    border: 2px solid #555 !important; /* Borde más visible */
+}
+
+body.dark-mode .org-info-popup h4 {
+    color: #64B5F6 !important; /* Azul más claro y visible */
+    font-weight: bold !important;
+}
+
+body.dark-mode .org-popup-header {
+    border-bottom-color: #555 !important;
+}
+
+body.dark-mode .org-popup-title-group h4 {
+    color: #64B5F6 !important; /* Azul más claro y visible */
+    font-weight: bold !important;
+}
+
+body.dark-mode .org-popup-cargo {
+    color: #A5D6A7 !important; /* Verde más claro para cargos */
+    font-weight: 500 !important;
+}
+
+body.dark-mode .org-popup-body p {
+    color: #e0e0e0 !important; /* Texto más claro */
+}
+
+body.dark-mode .org-popup-body p strong {
+    color: #f5f5f5 !important; /* Texto fuerte más claro */
+    font-weight: bold !important;
+}
+
+body.dark-mode .org-popup-body p em {
+    color: #d0d0d0 !important; /* Cursiva más clara */
+}
+
+body.dark-mode .close-popup-btn {
+    color: #e0e0e0 !important; /* Más visible */
+    font-size: 20px !important; /* Un poco más grande */
+}
+
+body.dark-mode .close-popup-btn:hover {
+    color: #ff6b6b !important; /* Rojo más claro para hover */
+    background-color: rgba(255, 107, 107, 0.1) !important; /* Fondo sutil en hover */
+}
+
+/* Overlay de los popups en modo oscuro */
+body.dark-mode .org-popup-overlay {
+    background-color: rgba(0,0,0,0.3) !important; /* Opacidad reducida para mejor contraste del popup */
+}
+
+/* Todos los modales en modo oscuro */
+body.dark-mode .modal-content {
+    background-color: #1e1e1e !important; /* Fondo más oscuro pero legible */
+    color: #e0e0e0 !important; /* Texto más claro */
+    border: 2px solid #555 !important; /* Borde más visible */
+}
+
+body.dark-mode .modal-title {
+    color: #64B5F6 !important; /* Azul más claro */
+    font-weight: bold !important;
+}
+
+body.dark-mode .modal-body {
+    color: #e0e0e0 !important; /* Texto más claro */
+}
+
+body.dark-mode .modal-body p {
+    color: #e0e0e0 !important; /* Texto más claro */
+}
+
+body.dark-mode .modal-body h3,
+body.dark-mode .modal-body h4,
+body.dark-mode .modal-body h5 {
+    color: #64B5F6 !important; /* Azul más claro */
+    font-weight: bold !important;
+}
+
+body.dark-mode .close-button {
+    color: #e0e0e0 !important; /* Más visible */
+    font-size: 24px !important;
+}
+
+body.dark-mode .close-button:hover {
+    color: #ff6b6b !important; /* Rojo más claro */
+    background-color: rgba(255, 107, 107, 0.1) !important;
+}
+
+body.dark-mode .modal-overlay {
+    background-color: rgba(0,0,0,0.3) !important; /* Opacidad reducida para mejor contraste del modal */
+}
+
+/* ==========================================================================
    8. SECCIÓN OFERTA EDUCATIVA (Acordeones, Modales)
    ========================================================================== */
 .oferta-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 40px; }
@@ -1159,6 +1773,30 @@ button.close-button:focus {
     list-style: disc;
     padding-left: 25px;
     margin-bottom: 1rem;
+}
+
+/* Estilos para el loader de modales con carga dinámica */
+.modal-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    font-style: italic;
+    color: #888;
+}
+
+.modal-loader::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border: 3px solid #ccc;
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 /* Modal específico para Video */
@@ -1689,21 +2327,21 @@ a.enlace-externo i {
     padding-bottom: 10px; /* Espacio debajo */
     display: flex; /* Para usar gap */
     justify-content: center;
-    gap: 8px;
+    gap: 4px; /* Gap reducido para indicadores minúsculos */
 }
 .testimonios-indicators-container .carousel-indicator {
-    width: 10px;
-    height: 10px;
+    width: 4px; /* Pequeños y consistentes */
+    height: 4px;
     border-radius: 50%;
-    background-color: #ccc; /* Gris claro */
+    background-color: #555;
     cursor: pointer;
     border: none;
     transition: background-color var(--transition-speed), transform 0.2s;
 }
 .testimonios-indicators-container .carousel-indicator.active,
 .testimonios-indicators-container .carousel-indicator:hover {
-    background-color: var(--primary-color); /* Color primario al activar/hover */
-    transform: scale(1.2);
+    background-color: var(--primary-color);
+    transform: scale(1.2); /* Escalado sutil */
 }
 /* Media query para mostrar menos tarjetas en pantallas pequeñas */
 @media (max-width: 992px) {
@@ -2763,4 +3401,158 @@ button.pwa-back-button i { margin-right: 3px; }
     .hero-section h2 { font-size: 1.7rem; }
     .pwa-tab-item i { font-size: 1.2rem; }
     .pwa-tab-item span { font-size: 0.6rem; }
+}
+
+/* ==========================================================================
+   PWA OFFLINE-FIRST NOTIFICATIONS
+   ========================================================================== */
+
+/* Update notification styles */
+.update-notification .update-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.update-notification .update-btn {
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.update-notification .update-btn:hover {
+    background: white;
+    transform: translateY(-1px);
+}
+
+.update-notification .dismiss-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.update-notification .dismiss-btn:hover {
+    opacity: 1;
+}
+
+/* Offline ready notification styles */
+.offline-ready-notification .offline-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.offline-ready-notification .offline-content i {
+    font-size: 24px;
+    opacity: 0.9;
+}
+
+.offline-ready-notification .offline-text {
+    flex: 1;
+}
+
+.offline-ready-notification .offline-text p {
+    margin: 4px 0 0 0;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.offline-ready-notification .dismiss-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    padding: 5px;
+}
+
+.offline-ready-notification .dismiss-btn:hover {
+    opacity: 1;
+}
+
+/* Notification animations */
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToBottom {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutToRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Mobile responsive notifications */
+@media (max-width: 768px) {
+    .update-notification {
+        left: 20px !important;
+        right: 20px !important;
+        max-width: none !important;
+    }
+    
+    .offline-ready-notification {
+        left: 15px !important;
+        right: 15px !important;
+    }
+    
+    .offline-ready-notification .offline-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .offline-ready-notification .offline-text {
+        order: -1;
+    }
+    
+    .update-notification .update-content {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
 }

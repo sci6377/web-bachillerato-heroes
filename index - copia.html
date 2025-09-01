@@ -9,16 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://uicdn.toast.com">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="images/hero/fachada1.webp" as="image" type="image/webp">
-    <link rel="preload" href="css/style.css" as="style">
-    
-    <!-- DNS prefetch for external domains -->
-    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <!-- Si usas videos de YouTube embebidos, añade también: -->
+    <!-- <link rel="preconnect" href="https://www.youtube.com"> -->
+    <!-- <link rel="preconnect" href="https://i.ytimg.com"> -->
+    <!-- <link rel="preconnect" href="https://static.doubleclick.net"> -->
+    <!-- <link rel="preconnect" href="https://googleads.g.doubleclick.net"> -->
 
     <meta name="description" content="Bachillerato General Estatal 'Héroes de la Patria' en Coronel Tito Hernández, Venustiano Carranza, Puebla. Oferta educativa, admisiones y más.">
     <meta name="keywords" content="bachillerato, heroes de la patria, puebla, venustiano carranza, coronel tito hernandez, educacion media superior, prepa">
@@ -37,83 +32,17 @@
     <noscript><link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css"></noscript>
 
     <link rel="manifest" href="manifest.json">
-    
-    <!-- Schema.org structured data for educational institution -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
-      "name": "Bachillerato General Estatal Héroes de la Patria",
-      "alternateName": "BGE Héroes de la Patria",
-      "description": "Bachillerato General Estatal ubicado en Coronel Tito Hernández, Venustiano Carranza, Puebla. Ofrecemos educación media superior de calidad con formación integral.",
-      "url": "https://sci6377.github.io/web-bachillerato-heroes/",
-      "logo": "https://sci6377.github.io/web-bachillerato-heroes/images/logo/logo-bachillerato-HDLP.webp",
-      "image": "https://sci6377.github.io/web-bachillerato-heroes/images/hero/fachada1.webp",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Coronel Tito Hernández",
-        "addressLocality": "Venustiano Carranza",
-        "addressRegion": "Puebla",
-        "addressCountry": "MX"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+52-XXX-XXX-XXXX",
-        "contactType": "customer service",
-        "availableLanguage": "Spanish"
-      },
-      "sameAs": [
-        "https://github.com/sci6377/web-bachillerato-heroes"
-      ],
-      "educationalCredentialAwarded": "Bachillerato General",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Programas Educativos",
-        "itemListElement": [
-          {
-            "@type": "Course",
-            "name": "Comunicación Gráfica",
-            "description": "Formación laboral básica en comunicación gráfica y diseño"
-          },
-          {
-            "@type": "Course", 
-            "name": "Preparación de Alimentos Artesanales",
-            "description": "Formación en técnicas tradicionales de preparación de alimentos"
-          },
-          {
-            "@type": "Course",
-            "name": "Instalaciones Residenciales", 
-            "description": "Formación en instalaciones básicas residenciales"
-          }
-        ]
-      }
-    }
-    </script>
 </head>
 <body>
-    <!-- Skip links for keyboard navigation -->
-    <a href="#main-content" class="skip-link visually-hidden-focusable">Saltar al contenido principal</a>
-    <a href="#main-nav-list" class="skip-link visually-hidden-focusable">Saltar a navegación</a>
-    
-    <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Alternar modo oscuro">
-        <i class="fas fa-moon" id="darkModeIcon"></i>
-    </button>
-    
-    <!-- Chat Bot Toggle Button -->
-    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Abrir chat de ayuda">
-        <i class="fas fa-comments"></i>
-    </button>
-    
     <div class="org-popup-overlay"></div>
 <!-- Preloader -->
-    <div id="preloader" role="img" aria-label="Página cargando" aria-live="polite">
+    <div id="preloader">
         <div class="loader-logo">
     <picture>
         <source srcset="images/logo/logo-bachillerato-HDLP2.webp" type="image/webp">
         <source srcset="images/logo/logo-bachillerato-HDLP2.jpeg" type="image/jpeg"> 
         <img src="images/logo/logo-bachillerato-HDLP2.webp" alt="Logo Bachillerato Héroes de la Patria" class="logo" width="300" height="430">
-        <p aria-live="polite">Cargando...</p>      
+        <p>Cargando...</p>      
     </picture>
         </div>
     </div>
@@ -121,7 +50,7 @@
     <!--                                    ENCABEZADO (BOOTSTRAP)                               -->
     <!-- ======================================================================================= -->
     <header role="banner">
-      <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm" role="navigation" aria-label="Navegación principal">
+      <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm">
         <div class="container-fluid" style="max-width: none; padding-left: 2rem; padding-right: 2rem;">
           <!-- Logo y Nombre de la Escuela -->
           <a class="navbar-brand d-flex align-items-center" href="#hero">
@@ -133,8 +62,8 @@
           </a>
     
           <!-- Botón Hamburguesa para Móvil -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarCollapse" aria-controls="mainNavbarCollapse" aria-expanded="false" aria-label="Abrir menú de navegación">
-            <span class="navbar-toggler-icon" aria-hidden="true"></span>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarCollapse" aria-controls="mainNavbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
     
           <!-- Contenido del Menú Colapsable -->
@@ -174,7 +103,6 @@
     <!--                                    SECCIÓN HERO CON CARRUSEL                                    -->
     <!-- ======================================================================================= -->
    
-    <main id="main-content">
     <section id="hero" class="hero-section" role="region" aria-labelledby="hero-title">
         <div class="carousel-wrapper">
             <div class="carousel-container hero-carousel">
@@ -182,49 +110,49 @@
                     <picture>
                         <source srcset="images/hero/fachada1.webp" type="image/webp">
                         <source srcset="images/hero/fachada1.jpeg" type="image/jpeg"> 
-                        <img src="images/hero/fachada1.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 1" width="1024" height="512" fetchpriority="high"> 
+                        <img src="images/hero/fachada1.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 1" width="1024" height="512"> 
                     </picture>
                 </div>
                 <div class="carousel-slide">
                     <picture>
                         <source srcset="images/hero/fachada2.webp" type="image/webp">
                         <source srcset="images/hero/fachada2.jpeg" type="image/jpeg"> 
-                        <img src="images/hero/fachada2.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 2" width="1024" height="768" loading="lazy"> 
+                        <img src="images/hero/fachada2.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 2" width="1024" height="768"> 
                     </picture>
                 </div>
                 <div class="carousel-slide">
                     <picture>
                         <source srcset="images/hero/fachada3.webp" type="image/webp">
                         <source srcset="images/hero/fachada3.jpeg" type="image/jpeg"> 
-                        <img src="images/hero/fachada3.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 3" width="1024" height="768" loading="lazy"> 
+                        <img src="images/hero/fachada3.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 3" width="1024" height="768"> 
                     </picture>
                 </div>
                 <div class="carousel-slide">
                     <picture>
                         <source srcset="images/hero/fachada4.webp" type="image/webp">
                         <source srcset="images/hero/fachada4.jpeg" type="image/jpeg"> 
-                        <img src="images/hero/fachada4.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 4" width="1024" height="768" loading="lazy"> 
+                        <img src="images/hero/fachada4.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 4" width="1024" height="768"> 
                     </picture>
                 </div>
                 <div class="carousel-slide">
                     <picture>
                         <source srcset="images/hero/fachada5.webp" type="image/webp">
                         <source srcset="images/hero/fachada5.jpeg" type="image/jpeg"> 
-                        <img src="images/hero/fachada5.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 5" width="1024" height="768" loading="lazy"> 
+                        <img src="images/hero/fachada5.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 5" width="1024" height="768"> 
                     </picture>
                 </div>
                 <div class="carousel-slide">
                     <picture>
                         <source srcset="images/hero/fachada6.webp" type="image/webp">
                         <source srcset="images/hero/fachada6.jpeg" type="image/jpeg"> 
-                        <img src="images/hero/fachada6.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 6" width="1024" height="768" loading="lazy"> 
+                        <img src="images/hero/fachada6.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 6" width="1024" height="768"> 
                     </picture>
                 </div>
                 <div class="carousel-slide">
                     <picture>
                         <source srcset="images/hero/fachada7.webp" type="image/webp">
                         <source srcset="images/hero/fachada7.jpeg" type="image/jpeg"> 
-                        <img src="images/hero/fachada7.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 7" width="1024" height="768" loading="lazy"> 
+                        <img src="images/hero/fachada7.webp" alt="Fachada del Bachillerato Héroes de la Patria - Vista 7" width="1024" height="768"> 
                     </picture>
                 </div>
                 <button class="carousel-control prev" aria-label="Anterior">❮</button>
@@ -1153,8 +1081,42 @@
         <div class="modal-content card-hover">
             <button class="close-button" aria-label="Cerrar modal">&times;</button>
             <h2>Perfil de Egreso Completo</h2>
-            <div class="modal-scrollable-content" data-content-url="fragments/perfil_egreso.html">
-                <div class="modal-loader" aria-label="Cargando contenido..."></div>
+            <div class="modal-scrollable-content">                
+		<p>Al concluir sus estudios, nuestros alumnos habrán desarrollado:</p>
+		<p>✅ Competencias disciplinares (matemáticas, ciencias, humanidades)</p>
+		<p>✅ Habilidades socioemocionales (trabajo en equipo, resiliencia)</p>
+		<p>✅ Capacidad emprendedora (iniciativa para generar soluciones)</p>
+		<p>✅ Conciencia social (compromiso con su entorno)</p>
+                <h4>A) CURRICULUM FUNDAMENTAL</h4>
+                <h5>I. Recursos sociocognitivos:</h5>
+                <p><strong>1. Lengua y comunicación:</strong> Valora discursos y expresiones provenientes de múltiples fuentes, situaciones y contextos para comprender, interactuar y explicar la realidad en la que vive; así como tomar decisiones pertinentes en lo individual y social. Valora la información y toma una postura ante la información de diversos tipos de textos para ampliar sus conocimientos, perspectivas, críticas y experiencias, que proporciona elementos para decidir sobre su vida personal, profesional y social. Trasmite conocimientos, cuestionamientos y experiencias a través de manifestaciones verbales y no verbales, de acuerdo con la situación, contexto e interlocutor, con el propósito de comprender, explicar su realidad y transformarla. Indaga sobre una situación, fenómeno o problemática y divulga los resultados de su investigación para beneficio de sí mismo o el medio que le rodea.</p>
+                <p><strong>2. Pensamiento matemático:</strong> Valora la aplicación de procedimientos automáticos y de algoritmos para anticipar, encontrar y validar soluciones a problemas (matemáticos, de las ciencias naturales, experimentales y tecnología, sociales, humanidades y de la vida cotidiana). Adapta procesos de razonamiento matemático que permiten relacionar información y obtener conclusiones de problemas (matemáticos, de las ciencias naturales, experimentales y tecnología, sociales, humanidades, y de la vida cotidiana). Modela y propone soluciones a problemas (matemáticos, de las ciencias naturales, experimentales y tecnología, sociales, humanidades y de la vida cotidiana) empleando lenguaje y técnicas matemáticas. Explica la solución de problemas en el contexto que le dio origen, empleando lenguaje matemático y lo valora como relevante y cercano a su vida.</p>
+                <p><strong>3. Conciencia histórica:</strong> Promueve la formación de pensamiento crítico a partir de la valoración de lo que aportó a su vida el análisis de las etapas y coyunturas históricas estudiadas. Argumenta las razones de su presente a partir de la influencia de los hechos históricos en su vida personal y familiar, para orientar las aspiraciones de su futuro. Asume que toda idea, creencia, ideología, objetos y realidades existentes en el tiempo actual se construyen a lo largo de la historia. Esto permitirá crear sus propias interpretaciones a partir de la crítica de fuentes, así como del análisis de diversas interpretaciones. Asume que se encuentra inmerso en un proceso histórico, lo cual le posibilita a responsabilizarse de la construcción del futuro, tanto en lo individual como en lo social.</p>
+                <p><strong>4. Cultura digital:</strong> Se asume como ciudadano digital con una postura crítica e informada que le permite adaptarse a la disponibilidad de recursos y diversidad de contextos. Usa herramientas digitales para comunicarse y colaborar en el desarrollo de proyectos y actividades de acuerdo con sus necesidades y contextos. Soluciona problemas de su entorno utilizando el pensamiento y lenguaje algorítmico. Diseña y elabora contenidos digitales mediante técnicas, métodos y recursos tecnológicos para fortalecer su creatividad e innovar en su vida cotidiana.</p>
+                <h5>II. Áreas de conocimiento:</h5>
+                <p><strong>1. Ciencias naturales, experimentales y tecnología:</strong> Las y los estudiantes comprenden qué es la materia y conciben sus interacciones para explicar muchas observaciones y fenómenos que experimentan en la vida diaria. A partir de una profunda comprensión de la estructura de la materia y de sus posibles combinaciones identifican por qué hay tantas y tan diferentes sustancias en el universo. Explican que la circulación de materia y energía está presente en todos los materiales y organismos vivos del planeta. Finalmente, los materiales nuevos pueden ser diseñados a partir de la comprensión de la naturaleza de la materia y ser utilizados como herramientas tecnológicas para la vida cotidiana. Las y los estudiantes comprenden que la conservación de la energía es un principio que se utiliza en todas las disciplinas científicas y en la tecnología, ya que aplica a todos los fenómenos naturales, experimentales y tecnología, conocidos; se utiliza tanto para dar sentido al mundo que nos rodea, como para diseñar y construir muchos dispositivos que utilizamos en la vida cotidiana. Reconocen los mecanismos por los que la energía se transfiere y que la energía fluye de los objetos o sistemas de mayor temperatura a los de menor temperatura. Las y los estudiantes valoran el papel que juegan los ecosistemas y los sistemas biológicos de la tierra, a través de la comprensión de las interacciones de sus componentes. Identifican que toda la materia en los ecosistemas circula entre organismos vivos y no vivos, y que todos requieren de un flujo continuo de energía. Reconocen que los átomos de carbono circulan desde la atmósfera hacia las plantas, a través del proceso de fotosíntesis, y que pasan a través de las redes alimentarias para eventually regresar a la atmósfera. El Conocimiento sobre los ecosistemas tiene aplicaciones tecnológicas en la medicina, la nutrición, la salud, la sustentabilidad, entre otros.</p>
+                <p><strong>2. Ciencias sociales:</strong> Construye explicaciones de cómo las sociedades y el ámbito de lo público, satisfacen sus necesidades y genera alternativas que ayuden a transformar su entorno hacia una sociedad más justa y equitativa. Se asume como agente de transformación social desde sus grupos, roles, contextos y circunstancias, a partir de la explicación y articulación de las estructuras, relaciones e interacciones sociales. Valora los cambios sociales, jurídicos y del Estado para participar en la construcción de una sociedad sostenible y sustentable. Evalúa las funciones y desempeño del Estado para ejercer su derecho participativo e intervenir en la solución en el espacio público de problemas del contexto, que afectan en lo personal, lo familiar y en los social. Analiza la actuación de grupos políticos o de poder y asume una postura crítica con el propósito de construir una sociedad más justa y equitativa.</p>
+                <p><strong>3. Humanidades:</strong> Cuestiona y argumenta los significados (culturales, políticos, históricos, tecnológicos, naturales, entre otros) de las prácticas, discursos, instituciones y acontecimientos que constituyen su vida para fortalecer su afectividad y sus capacidades de construir su experiencia individual y colectiva. Somete a crítica los significados del estar juntos, cómo se conciben y experimentan las relaciones colectivas y con la naturaleza que potencian su capacidad de decisión ante situaciones y problemáticas de su vida. Se asume como agente de sí mismo y de la colectividad al experimentar los acontecimientos, discursos, instituciones, imágenes, objetos y prácticas que conforman sus vivencias.</p>
+                
+                <h4>B) CURRÍCULUM LABORAL</h4>
+                <p><strong>I. Competencias laborales básicas.</strong> Son formación profesional genérica y transversal en diversos perfiles productivos, sin embargo, no constituye un perfil y grado específico y no requiere de manera indispensable bachillerato o sus equivalentes, proporcionan a las personas formación básica para el trabajo, además de que cuentan con el reconocimiento social para ser aplicadas en el desempeño laboral.</p>
+                <p><strong>II. Competencias laborales extendidas.</strong> Corresponden a la formación profesional específica y especializada de un perfil o campo productivo, constituye un perfil y grado cuando se acredita una trayectoria completa de un plan y programas de estudio de una carrera técnica o tecnológica y se articula con los estudios de bachillerato o sus equivalentes a fin de obtener el título y cédula para el ejercicio profesional. Las competencias laborales básicas y las competencias laborales extendidas se organizan para integrar trayectorias ocupacionales o carreras técnicas o tecnológicas de la EMS.</p>
+                <p><strong>Comunicación Gráfica:</strong> La Formación Laboral Básica en Comunicación Gráfica permite al egresado, a través de la articulación de saberes históricos con habilidades manuales para la representación gráfica, identificar las aplicaciones y áreas de desempeño laboral de la comunicación gráfica, incluyendo el ámbito artesanal; el manejo de herramientas para vectorización o retoque digital y conocimiento sobre composición, color y tipografía en propuestas gráficas enfocadas en resolver problemas de comunicación visual; conocer necesidades de pre-prensa para sistemas de impresión tradicional o industrial; preparar archivos y maquetación editorial para generar propuestas de comunicación visual artística, artesanal y publicitaria; además, de contribuir a la adquisición de terminología propia de la comunicación gráfica, así como, generar conciencia en relación a la eco-sustentabilidad. Durante el proceso de formación, la y el estudiante desarrollará o reforzará su creatividad, sus habilidades en distintos ambientes y con diferentes herramientas, sus habilidades digitales al utilizar aplicaciones y software adecuados; también adquirirá la capacidad de planear, producir y comunicar mensajes de manera digital e impresa, acompañando cada paso de la producción, desde la primera formación de la idea, hasta su manifestación. Además, podrá presentar sus productos gráficos de manera objetiva y argumentada. El proceso de formación de las ocho UAC, permite en la y el estudiante desarrollar o reforzar las siguientes competencias laborales básicas: • Elabora bocetos gráficos comprensibles y creativos a partir de las necesidades de comunicación gráfica requerida. • Ilustra dibujos en materiales artesanales o artísticos. • Reproduce bocetos gráficos básicos utilizando herramientas tradicionales o digitales. • Utiliza elementos de comunicación visual y fuentes tipográficas para resolver problemas y necesidades de comunicación. • Utiliza técnicas de impresión para los diversos productos gráficos, artesanales, artísticos, y publicitarios. • Integra efectos visuales a imágenes y textos por medio de software o aplicaciones digitales de uso libre. • Realiza maquetación de productos gráficos para publicidad y rotulación. • Emplea materiales amigables con el medio ambiente para productos gráficos, artísticos y publicitarios.</p>
+                <p><strong>Preparación de Alimentos Artesanales:</strong> La formación laboral básica en “Preparación de Alimentos Artesanales” permitirá al estudiante apropiarse de los conocimientos, habilidades y actitudes para transformar alimentos de manera artesanal con ingredientes y técnicas propias de su región. A lo largo de las ocho unidades de aprendizaje curricular, el estudiante podrá desarrollar las siguientes competencias laborales: • Conserva frutas, verduras y legumbres a través de métodos tradicionales. • Transforma cereales y harinas para la elaboración de tortillas y productos afines. • Realiza distintos tipos de pan a base de harinas y otros ingredientes. • Elabora productos utilizando azúcar para preparar dulces típicos. • Obtiene bebidas no alcohólicas mediante procedimientos simples. • Prepara productos de carnes, derivados disponibles y sustitutos de proteína. • Elabora productos lácteos por métodos tradicionales. • Realiza productos utilizando aceites, grasas y condimentos a través de métodos tradicionales.</p>
+                <p><strong>Instalaciones Residenciales:</strong> El Componente de formación laboral básico del Bachillerato Estatal denominada Instalaciones Residenciales permite al egresado, mediante la articulación de saberes de diversos campos, realizar actividades dirigidas a la interpretación de croquis de cada una de las instalaciones residenciales básicas, preparación y traslado de materiales, uso adecuado de equipo de seguridad para realizar cortes, ranuras en construcciones e instalaciones, colocación de elementos constructivos, muebles, tuberías y conexiones; así como la recuperación de materiales de reúso y reciclables para su utilización. Durante el proceso de formación de las ocho UAC, la y el estudiante desarrollará o reforzará las siguientes competencias laborales: • Interpreta croquis de diferentes instalaciones básicas de una vivienda. • Prepara materiales en cantidad y calidad especificada para llevar a cabo diferentes tipos de mezclas bajo la supervisión del experto. • Traslada materiales constructivos hacia sitios de trabajo bajo normas de seguridad. • Realiza cortes, ranuras en pisos, techos y muros en construcción e instalaciones residenciales. • Limpia muebles, tuberías y conexiones para llevar a cabo diferentes instalaciones de una vivienda. • Coloca elementos constructivos básicos de una vivienda. • Coloca muebles, tuberías y conexiones de acuerdo con instrucciones. • Recupera materiales de construcción para su reúso.</p>
+
+                <h4>C) CURRÍCULUM AMPLIADO</h4>
+                <h5>I. Recursos socioemocionales:</h5>
+                <p><strong>1. Responsabilidad social:</strong> Ejerce y promueve los derechos y Valores, proponiendo soluciones para combatir toda forma de desigualdad. Fomenta la inclusión y el respeto a la diversidad de todas las personas en la sociedad, actuando con perspectiva de género y enfoque interseccional. Colabora en la vida escolar, comunitaria y social, aportando ideas y soluciones para el bien común, en torno a la salud, la interculturalidad, el cuidado de la naturaleza y la transformación social. Contribuye a la resolución de conflictos de su entorno de manera autónoma, colaborativa y creativa para fomentar la cultura de paz. Construye y fortalece identidades a través de actividades artísticas, culturales y deportivas a nivel individual y colectivo.</p>
+                <p><strong>2. Cuidado físico corporal:</strong> Incorpora hábitos saludables y actividades físicas y deportivas como una elección para su vida. Desarrolla y promueve acciones de autocuidado enfocadas a la prevención e intervención de conductas de riesgo, enfermedades o accidentes para su bienestar físico, mental y emocional. Se asume como cuerpo que siente, crea, expresa y comunica para fomentar el autocuidado. Ejerce su sexualidad de manera responsable, saludable y placentera, procurando el bienestar y desarrollo integral propio y de las demás personas. Plantea metas a corto y mediano plazo para el cuidado de su cuerpo, mente y emociones como parte de su desarrollo integral.</p>
+                <p><strong>3. Bienestar emocional afectivo:</strong> Establece vínculos interpersonales saludables mediante el conocimiento de sus emociones y necesidades para su bienestar y desarrollo integral. Construye su proyecto de vida, a partir del reconocimiento de sus experiencias y expectativas, orientado al despliegue de sus capacidades e identificación de oportunidades de desarrollo integral. Construye lazos afectivos responsables e igualitarios, mediante el ejercicio pleno de su sexualidad. Aprecia y aplica formas creativas para expresar sus emociones, sentimientos y experiencias, de manera responsable, que le permitan su bienestar intra e interpersonal y desarrollarse como agente de transformación social.</p>
+                <h5>II. Ámbitos de la formación socioemocional:</h5>
+                <p><strong>1. Práctica y colaboración ciudadana:</strong> Proyectos de apoyo y transformación escolar, comunitaria y global, según las condiciones e intereses de las y los estudiantes y la planta docente: alfabetización, cuidado y protección del medio ambiente, convivencia y transformación de conflictos, manejo de desechos, tutoría a pares, trabajo con adultos mayores, mentorías, periódicos escolares, grupos de mediación, entre otros. Proyectos desde el enfoque de redes, a través del trabajo interinstitucional con diversos sectores: organismos gubernamentales, organizaciones de la sociedad civil, sector productivo, académico y privado. Actividades de formación socioemocional orientadas al desarrollo de la Práctica y colaboración ciudadana de diversa índole: - Procesos de debate, deliberación, comprensión y crítica sobre temas sociales específicos a través de círculos de discusión, videoclubes y otros recursos. - Talleres de formación de la comunidad escolar en diversas temáticas, haciendo uso de una metodología socio afectiva y vivencial.</p>
+                <p><strong>2. Educación para la salud:</strong> Modelamiento de hábitos saludables en cada uno de los espacios del Plantel. Descansos activos a través de ejercicios físicos. Ejercicios de regulación emocional. Sesiones informativas y talleres educativos con metodologías interactivas y reflexivas. Proyectos interdisciplinares, vinculados con el currículum fundamental. Asambleas o foros en los que las y los estudiantes identifiquen necesidades en materia de salud, tales como: jornadas de limpieza, campañas de sensibilización sobre temas de salud, ferias de la salud, construcción de un comedor escolar, etc. Proyectos colaborativos involucrando a madres, padres de familia y miembros de la comunidad en la puesta en marcha: torneos, exposiciones de arte, representaciones artísticas, construcción de un huerto, entre otros.</p>
+                <p><strong>3. Actividades físicas y deportivas:</strong> Desarrollo de actividades físicas y deportivas a través de juegos deportivos, juegos colectivos o cooperativos, juegos metafóricos y juegos autóctonos y tradicionales. Proyectos interdisciplinares, vinculados con las diferentes Áreas de conocimiento del currículum fundamental. Proyectos colaborativos, tales como olimpiadas escolares, campañas de promoción de activación física tanto para la comunidad escolar y del entorno a partir de las actividades propuestas por la población estudiantil, campañas de recuperación de espacios deportivos de su entorno o hacer campañas de sensibilización de las actividades físicas y deportivas en la comunidad.</p>
+                <p><strong>4. Educación integral en sexualidad y género:</strong> Actividades, talleres y campañas para promover el análisis, ejercicio y difusión de los derechos sexuales y reproductivos. Actividades que promuevan el desarrollo de confianza, seguridad y autoestima, así como el análisis de roles de género. Actividades, talleres proyectos que promuevan la erradicación de estereotipos de género. Actividades que promuevan la salud sexual y reproductiva como un derecho humano, por ejemplo, ferias, campañas en redes sociales, retos formativos. Proyectos escolares y comunitarios. Proyectos productivos. Proyectos colaborativos con enfoque interseccional, entre otros.</p>
+                <p><strong>5. Actividades artísticas y culturales:</strong> Actividades autobiográficas creativas. Actividades de visualización creativas. Proyectos artísticos colectivos y/o cooperativos. Proyectos culturales con las artes y sus prácticas. Proyectos creativos de apropiación social del patrimonio cultural. Proyectos interdisciplinares que vinculen el currículum fundamental con el currículum ampliado.</p>
+
             </div>
         </div>
     </div>
@@ -1165,18 +1127,89 @@
         <div class="modal-content card-hover">
             <button class="close-button" aria-label="Cerrar modal">&times;</button>
             <h2>Formación Laboral: Comunicación Gráfica</h2>
-            <div class="modal-scrollable-content" data-content-url="fragments/comunicacion_grafica.html">
-                <div class="modal-loader" aria-label="Cargando contenido..."></div>
+            <div class="modal-scrollable-content">               
+                <h5>Programa de Comunicación Gráfica - Actividades Clave</h5>
+                <h6>3er Semestre</h6>
+                <p><strong>UAC 1: Elabora bocetos gráficos comprensibles y creativos a partir de las necesidades de comunicación gráfica requerida</strong><br>
+                1. Identifica formas de comunicación gráfica utilizadas a través del tiempo<br>
+                2. Elabora bocetos gráficos básicos comprensibles y creativos<br>
+                3. Utiliza creatividad para reproducir mensajes en comunicación gráfica</p>
+                <p><strong>UAC 2: Ilustra dibujos en materiales artesanales o artísticos</strong><br>
+                1. Elige técnicas artísticas o artesanales de dibujo<br>
+                2. Elige tipos de dibujo y su aplicación en la comunicación gráfica<br>
+                3. Reproduce ilustraciones en materiales artísticos o artesanales</p>
+                <h6>4° Semestre</h6>
+                <p><strong>UAC 1: Reproduce bocetos gráficos básicos utilizando herramientas tradicionales o digitales</strong><br>
+                1. Emplea herramientas comerciales para bocetaje digital básico<br>
+                2. Maneja aplicaciones de uso libre para bocetaje digital básico<br> 
+                3. Digitaliza bocetos artísticos o publicitarios por medio de herramientas o aplicaciones de uso libre</p>
+                <p><strong>UAC 2: Utiliza elementos de comunicación visual y fuentes tipográficas para resolver problemas y necesidades de comunicación</strong><br>
+                1. Emplea elementos básicos de la comunicación visual en productos gráficos<br>
+                2. Utiliza fuentes y familias tipográficas para resolver necesidades de comunicación en productos gráficos<br>
+                3. Aplica modos y psicología del color para resolver necesidades de comunicación</p>
+                <h6>5° Semestre</h6>
+                <p><strong>UAC 1: Utiliza técnicas de impresión para los diversos productos gráficos, artesanales, artísticos y publicitarios</strong><br>
+                1. Utiliza técnicas de impresión artística y artesanal en productos gráficos<br>
+                2. Emplea técnicas de impresión industriales en productos gráficos<br>
+                3. Reproduce productos gráficos artesanales, artísticos o publicitarios por medio de diversas técnicas de impresión</p>
+                <p><strong>UAC 2: Integra efectos visuales a imágenes y textos por medio de software o aplicaciones digitales de uso libre</strong><br>
+                1. Retoca imágenes digitales por medio de software de uso libre<br>
+                2. Retoca imágenes digitales por medio de aplicaciones de uso libre<br>
+                3. Identifica requerimientos técnicos de tamaño, proporción y calidad de imágenes digitales para su reproducción en diversos medios</p>
+                <h6>6° Semestre</h6>
+                <p><strong>UAC 1: Realiza maquetación de productos gráficos para publicidad y rotulación</strong><br>
+                1. Utiliza formas y técnicas de maquetación para productos artísticos, artesanales y publicitarios<br>
+                2. Elabora maquetación de productos gráficos artísticos y artesanales con colorimetría y elementos de comunicación visual<br>
+                3. Elabora maquetación asistida de productos publicitarios y promocionales a partir de necesidades específicas de comunicación</p>
+                <p><strong>UAC 2: Emplea materiales amigables con el medio ambiente para productos gráficos artísticos y publicitarios</strong><br>
+                1. Utiliza materiales de producción gráfica amigables con el medio ambiente<br>
+                2. Reproduce productos gráficos artesanales regionales<br>
+                3. Reproduce productos gráficos artísticos, publicitarios y regionales con materiales amigables con el medio ambiente</p>
             </div>
         </div>
     </div>
-
     <div id="alimentos-artesanales-modal" class="modal">
         <div class="modal-content card-hover">
             <button class="close-button" aria-label="Cerrar modal">&times;</button>
             <h2>Formación Laboral: Preparación de Alimentos Artesanales</h2>
-            <div class="modal-scrollable-content" data-content-url="fragments/alimentos_artesanales.html">
-                <div class="modal-loader" aria-label="Cargando contenido..."></div>
+            <div class="modal-scrollable-content">               
+                <h5>Programa de Preparación de Alimentos Artesanales - Actividades Clave</h5>
+                <h6>3er Semestre</h6>
+                <p><strong>UAC 1: Conserva frutas, verduras y legumbres a través de métodos tradicionales</strong><br>
+                1. Dispone Normas de Seguridad e higiene en la preparación de frutas, verduras y legumbres<br>
+                2. Conserva frutas, verduras y legumbres por deshidratación<br>
+                3. Conserva verduras y legumbres en salmuera y vinagre</p>
+                <p><strong>UAC 2: Transforma cereales y harinas para la elaboración de tortillas y productos afines</strong><br>
+                1. Aplica principios de la Nixtamalización<br>
+                2. Elabora tortillas, totopo y tostada<br>
+                3. Elabora tamales, atoles y tortillas enriquecidas</p>
+                <h6>4° Semestre</h6>
+                <p><strong>UAC 1: Realiza distintos tipos de pan a base de harinas y otros ingredientes</strong><br>
+                1. Utiliza Ingredientes en masas y mezclas<br>
+                2. Prepara diversos tipos de masas y preparados<br>
+                3. Prepara productos de Panadería tradicional</p>
+                <p><strong>UAC 2: Elabora productos utilizando azúcar para preparar dulces típicos</strong><br>
+                1. Elabora productos cristalizados<br>
+                2. Produce dulces típicos a base de semillas<br>
+                3. Prepara diversos dulces típicos mexicanos</p>
+                <h6>5° Semestre</h6>
+                <p><strong>UAC 1: Obtiene bebidas no alcohólicas mediante procedimientos simples</strong><br>
+                1. Elabora té, tizanas e infusiones<br>
+                2. Elabora zumos, jugos y concentrados<br>
+                3. Prepara bebidas sin alcohol</p>
+                <p><strong>UAC 2: Prepara productos de carnes, derivados disponibles y sustitutos de proteína</strong><br>
+                1. Prepara productos a base de cerdo y res curados y cocidos<br>
+                2. Prepara productos a base de aves marinadas y cocidas<br>
+                3. Prepara productos a base de soya procesada en diferentes presentaciones y sustitutos de proteína</p>
+                <h6>6° Semestre</h6>
+                <p><strong>UAC 1: Elabora productos lácteos por métodos tradicionales</strong><br>
+                1. Elabora queso a partir de leche fresca<br>
+                2. Elabora crema y mantequilla a partir de leche fresca<br>
+                3. Elabora productos fermentados y derivados lácteos</p>
+                <p><strong>UAC 2: Realiza productos utilizando aceites, grasas y condimentos a través de métodos tradicionales</strong><br>
+                1. Prepara aceite saborizados<br>
+                2. Realiza emulsiones con aceites y grasas<br>
+                3. Elabora condimentos y especias</p>
             </div>
         </div>
     </div>
@@ -1184,9 +1217,44 @@
         <div class="modal-content card-hover">
             <button class="close-button" aria-label="Cerrar modal">&times;</button>
             <h2>Formación Laboral: Instalaciones Residenciales</h2>
-            <div class="modal-scrollable-content" data-content-url="fragments/instalaciones_residenciales.html">
-                <div class="modal-loader" aria-label="Cargando contenido..."></div>
-            </div>
+            <div class="modal-scrollable-content">                
+                <h5>Programa de Instalaciones Residenciales - Actividades Clave</h5>
+                <h6>3er Semestre</h6>
+                <p><strong>UAC 1: Interpreta croquis de diferentes instalaciones básicas de una vivienda</strong><br>
+                1. Identifica instalaciones básicas de una vivienda de acuerdo con los diferentes espacios<br>
+                2. Interpreta símbolos para la construcción e instalaciones hidráulicas, de gas y eléctricas<br>
+                3. Elabora croquis de construcción e instalaciones hidráulicas, de gas y eléctricas de una vivienda bajo la supervisión del experto</p>
+                <p><strong>UAC 2: Prepara materiales en cantidad y calidad especificada para llevar a cabo diferentes tipos de mezclas bajo la supervisión del experto</strong><br>
+                1. Verifica materiales de construcción acordes a las necesidades de las instalaciones hidráulicas, de gas y eléctricas<br>
+                2. Cuantifica materiales como tuberías, conexiones, pegamentos, codos que son necesarios por cada instalación<br>
+                3. Verifica calidad del material a utilizar de acuerdo con manuales hidrosanitarios, de gas y eléctricos</p>
+                <h6>4° Semestre</h6>
+                <p><strong>UAC 1: Traslada materiales constructivos hacia sitios de trabajo bajo normas de seguridad</strong><br>
+                1. Verifica equipo de seguridad para importar los materiales de construcción<br>
+                2. Utiliza equipo de seguridad para cada proceso de instalación eléctrica, hidrosanitaria y de gas<br>
+                3. Transporta material con base a normas, reglamentos de seguridad y prevención de riesgos</p>
+                <p><strong>UAC 2: Realiza cortes, ranuras en pisos, techos y muros en construcción e instalaciones residenciales</strong><br>
+                1. Organiza equipo y herramientas por categorías y uso residencial<br>
+                2. Realiza cortes y ranuras para la construcción bajo las indicaciones del experto<br>
+                3. Realiza cortes, ranuras en instalaciones hidráulicas, eléctricas y de gas bajo las indicaciones del experto</p>
+                <h6>5° Semestre</h6>
+                <p><strong>UAC 1: Limpia muebles, tuberías y conexiones para llevar a cabo diferentes instalaciones de una vivienda</strong><br>
+                1. Considera formas y manejo de los muebles, tuberías y conexiones para la construcción e instalaciones residenciales<br>
+                2. Clasifica materiales de plomería, hidráulica e instalaciones de gas de acuerdo con las dimensiones de la vivienda y los muebles<br>
+                3. Utiliza materiales y equipo para la limpieza de muebles, tuberías y conexiones</p>
+                <p><strong>UAC 2: Coloca elementos constructivos básicos de una vivienda</strong><br>
+                1. Reúne elementos constructivos básicos de una vivienda<br>
+                2. Traslada materiales requeridos al sitio de la obra<br>
+                3. Instala muebles y accesorios de acuerdo con lo especificado en el plano</p>
+                <h6>6° Semestre</h6>
+                <p><strong>UAC 1: Coloca muebles, tuberías y conexiones de acuerdo con instrucciones</strong><br>
+                1. Clasifica instalaciones sustentables de electricidad, hidrosanitarias y de gas<br>
+                2. Verifica viabilidad del espacio para la instalación sustentable<br>
+                3. Elabora croquis de la instalación residencial sustentable</p>
+                <p><strong>UAC 2 Recupera materiales de construcción para su reúso</strong><br>
+                1. Clasifica material sobrante durante la construcción o instalación residencial<br>
+                2. Registra material sobrante en una bitácora acorde con especificaciones del especialista<br>
+                3. Reutiliza material sobrante de manera sustentable</p>
             </div>
         </div>
     </div>
@@ -1247,8 +1315,17 @@
         <div class="modal-content card-hover">
             <button class="close-button" aria-label="Cerrar modal">&times;</button>
             <h2>Actividades Extracurriculares</h2>
-            <div class="modal-scrollable-content" data-content-url="fragments/extracurriculares.html">
-                <div class="modal-loader" aria-label="Cargando contenido..."></div>
+            <div class="modal-scrollable-content">
+                <p>En "Héroes de la Patria" creemos en la formación integral. Por ello, ofrecemos una variedad de actividades para desarrollar tus talentos e intereses:</p>
+                <h4><i class="fas fa-running"></i> Deportivas:</h4>
+                <ul role="list" aria-label="Actividades deportivas"><li role="listitem" tabindex="0">Fútbol</li><li role="listitem" tabindex="0">Básquetbol</li><li role="listitem" tabindex="0">Voleibol</li><li role="listitem" tabindex="0">Ajedrez</li></ul>
+                <h4><i class="fas fa-palette"></i> Culturales:</h4>
+                <ul role="list" aria-label="Actividades culturales"><li role="listitem" tabindex="0">Ballet</li><li role="listitem" tabindex="0">Danza</li><li role="listitem" tabindex="0">Panderos</li><li role="listitem" tabindex="0">Bastoneras</li><li role="listitem" tabindex="0">Artes Plásticas</li><li role="listitem" tabindex="0">Oratoria, Declamación, Poesía, Cuento, Ensayo</li><li role="listitem" tabindex="0">Carta, Cartel, Dibujo, Cómics, Pintura</li><li role="listitem" tabindex="0">Fotografía Digital y TikTok</li></ul>
+                <h4><i class="fas fa-brain"></i> Conocimientos:</h4>
+                <ul role="list" aria-label="Actividades de conocimientos"><li role="listitem" tabindex="0">Spelling Bee</li><li role="listitem" tabindex="0">Olimpiada de Matemáticas</li><li role="listitem" tabindex="0">Experimentos Científicos</li></ul>
+                <h4><i class="fas fa-flag"></i> Cívicas:</h4>
+                <ul role="list" aria-label="Actividades cívicas"><li role="listitem" tabindex="0">Escolta</li><li role="listitem" tabindex="0">Banda de Guerra</li></ul>
+                <p>¡Participa y enriquece tu experiencia escolar!</p>
             </div>
         </div>
     </div>
@@ -1651,8 +1728,14 @@
         <div class="modal-content card-hover">
             <button class="close-button" aria-label="Cerrar modal">×</button>
             <h2>Informes Financieros</h2>
-            <div class="modal-scrollable-content" data-content-url="fragments/financieros.html">
-                <div class="modal-loader" aria-label="Cargando contenido..."></div>
+            <div class="modal-scrollable-content">
+                <p>Aquí encontrarás los documentos relacionados con la gestión financiera del bachillerato:</p>
+                <ul class="document-list" role="list" aria-label="Lista de documentos">
+                    <li role="listitem" tabindex="0"><a href="documentos/corte_caja_bim3_2025.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Corte de Caja Bimestre 1 - 2024</a> <span>(Publicado: [Fecha])</span></li>
+                    <li role="listitem" tabindex="0"><a href="documentos/corte_caja_bim4_2025.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Corte de Caja Bimestre 2 - 2024</a> <span>(Publicado: [Fecha])</span></li>
+                    <!-- Añade más documentos según sea necesario -->
+                    <li role="listitem" tabindex="0"><p><em>Más informes serán publicados periódicamente.</em></p></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -1662,8 +1745,14 @@
         <div class="modal-content card-hover">
             <button class="close-button" aria-label="Cerrar modal">×</button>
             <h2>Informes de Actividades (PMC y PAEC)</h2>
-            <div class="modal-scrollable-content" data-content-url="fragments/actividades.html">
-                <div class="modal-loader" aria-label="Cargando contenido..."></div>
+            <div class="modal-scrollable-content">
+                <p>Consulta los informes sobre el Programa de Mejora Continua (PMC) y el Plan Anual de Evaluación y Certificación (PAEC):</p>
+                 <ul class="document-list" role="list" aria-label="Lista de documentos">
+                    <li role="listitem" tabindex="0"><a href="documentos/informe_pmc_2025.pdf" target="_blank"><i class="fas fa-file-alt"></i> Informe Anual PMC 2025</a> <span>(Publicado: [Fecha])</span></li>
+                    <li role="listitem" tabindex="0"><a href="documentos/paec_resultados_2025.pdf" target="_blank"><i class="fas fa-file-alt"></i> Resultados PAEC 2025</a> <span>(Publicado: [Fecha])</span></li>
+                    <!-- Añade más documentos según sea necesario -->
+                    <li role="listitem" tabindex="0"><p><em>Más informes serán publicados periódicamente.</em></p></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -2324,8 +2413,6 @@
         </div>
     </section>
 
-    </main>
-    
     <!-- ======================================================================================= -->
     <!--                                    FOOTER                                               -->
     <!-- ======================================================================================= -->
@@ -2650,40 +2737,7 @@
     <script src="js/responsive-nav.js" defer></script>
     <script src="js/cms-integration.js" defer></script>
     
-    <!-- Chat Bot Container -->
-    <div class="chatbot-container" id="chatbotContainer">
-        <div class="chatbot-header">
-            <div>
-                <strong>Asistente Virtual</strong>
-                <div style="font-size: 12px; opacity: 0.8;">Héroes de la Patria</div>
-            </div>
-            <button onclick="toggleChatbot()" style="background: none; border: none; color: white; font-size: 18px;" aria-label="Cerrar chat">×</button>
-        </div>
-        
-        <div class="chatbot-messages" id="chatbotMessages">
-            <div class="message bot">
-                ¡Hola! 👋 Soy el asistente virtual del Bachillerato Héroes de la Patria. ¿En qué puedo ayudarte hoy?
-            </div>
-        </div>
-        
-        <div class="typing-indicator" id="typingIndicator">
-            <div class="typing-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        
-        <div class="chatbot-input">
-            <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." onkeypress="handleKeyPress(event)" aria-label="Escribe tu pregunta">
-            <button onclick="sendMessage()" aria-label="Enviar mensaje">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
-
     <!-- Script Personalizado -->
     <script src="js/script.js"></script>
-    <script src="js/chatbot.js"></script>
 </body>
 </html>
